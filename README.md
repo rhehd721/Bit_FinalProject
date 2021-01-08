@@ -4,6 +4,7 @@
 Linux_Ubuntu
 
 # DB [행(low)과 열(column)으로 구성된 2차원 데이터]
+(youtube.com/watch?v=vgIc4ctNFbc&t=2090s)
 
 MySQL를 개선한 MariaDB 사용
 
