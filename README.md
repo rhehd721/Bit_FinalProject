@@ -19,3 +19,4 @@ MariaDB(https://downloads.mariadb.org/)
 
 <img src="./img/Query.png" width="40%" height="30%" title="기본쿼리" ></img>
 <img src="./img/Query2.png" width="40%" height="30%" title="기본쿼리" ></img>
+
