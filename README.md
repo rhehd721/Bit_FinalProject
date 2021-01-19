@@ -19,3 +19,11 @@ MariaDB(https://downloads.mariadb.org/)
 
 <img src="./img/Query.png" width="40%" height="30%" title="기본쿼리" ></img>
 <img src="./img/Query2.png" width="40%" height="30%" title="기본쿼리" ></img>
+
+---
+
+## Linux cpp compile
+
+1. g++설치 <sudo apt install g++>
+2. comoile <g++ -o (파일이름) (파일경로)>
+3. run <./(파일경로)> 
