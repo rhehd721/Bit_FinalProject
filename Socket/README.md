@@ -11,6 +11,9 @@
 ``` c
 #include <sys/socket.h>
 
+// domain : 소켓이 사용할 프로토콜 체계 정보 전달
+// type : 소켓의 데이터 전송방식에 대한 정보 전달
+// protocol : 두 컴퓨터간 통신에 사용되는 프로토콜 정보 전달
 int socket(int domain, int type, int protocol);
 ```
 2. IP주소와 PORT번호 할당 <bind 함수호출>
@@ -91,3 +94,33 @@ size_t write( int fd, const void *buf, size_t nbytes);
 |O_RDONLY|읽기 전용으로 파일 오픈|
 |O_WRONLY|쓰기 전용으로 파일 오픈|
 |O_RDWR|읽기, 쓰기 겸용으로 파일 오픈|
+<br>
+
+4. 파일에 저장된 데이터 읽기
+``` c
+#include <unistd.h>
+
+// fd : 데이터 수신대상을 나타내는 파일디스크립터 전달
+// buf : 수신한 데이터가 저장할 버퍼의 주소 값 전달
+// nbytes : 수신할 최대 바이트 수 전달
+ssize_t read( int fd, const void *buf, size_t nbytes);
+```
+
+## 프로토콜(Protocol)
+컴퓨터 상호간의 대화에 필요한 통신규약
+<br>
+<br>
+
+### 프로토콜 체계(Protocol Family)
+[헤더파일 sys/socket.h에 선언되어 있는 프로토콜 체계]
+|이름|프로토콜 체계(Protocol Family)|
+|------|---|
+|PF_INET|IPv4 인터넷 프로토콜 체계|
+|PF_INET6|IPv6 인터넷 프로토콜 체계|
+|PF_LOCAL|로컬 통신을 위한 UNIX 프로토콜 체계|
+|PF_PACKET|Low Level 소켓을 위한 프로토콜 체계|
+|PF_IPX|IPX 노벨 프로토콜 체계|
+<br>
+<br>
+
+### ㄴ
