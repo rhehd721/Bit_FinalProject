@@ -1,6 +1,6 @@
 # Bit_FinalProject
 
-# 개발환경 
+## 개발환경 
 Linux_Ubuntu
 
 ## Linux C++ compile
