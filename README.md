@@ -22,8 +22,15 @@ MariaDB(https://downloads.mariadb.org/)
 
 ---
 
-## Linux cpp compile
+## Linux C++ compile
 
 1. g++설치 <sudo apt install g++>
-2. comoile <g++ -o (파일이름) (파일경로)>
+2. compile <g++ -o (실행파일명) (파일경로)>
 3. run <./(파일경로)> 
+
+
+## Linux C compile
+
+1. compile <gcc -o (실행파일명) (파일경로)>
+2. run <./(파일경로)> 
+
