@@ -13,4 +13,3 @@ Linux_Ubuntu
 
 1. compile <gcc -o (실행파일명) (파일경로)>
 2. run <./(파일경로)> 
-
