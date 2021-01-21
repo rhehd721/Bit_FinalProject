@@ -40,10 +40,12 @@ int main(int argc, char *argv[]){
         error_handling("connect() error");
     }
 
+    // read함수를 반복 호출되고 호출될때마다 1바이트씩 데이터를 읽어드린다.
     while(read_len = read(sock, &message[idx++], 1)){
         if(str_len == -1){
             error_handling("read() error");
         }
+        // 읽어들인 바이트 저장
         str_len += read_len;
     }
 
