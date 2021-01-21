@@ -106,7 +106,7 @@ size_t write( int fd, const void *buf, size_t nbytes);
 ssize_t read( int fd, const void *buf, size_t nbytes);
 ```
 
-## 프로토콜(Protocol)
+## 프로토콜(Protocol) : 소켓함수 1번째 인자
 컴퓨터 상호간의 대화에 필요한 통신규약
 <br>
 <br>
@@ -123,4 +123,28 @@ ssize_t read( int fd, const void *buf, size_t nbytes);
 <br>
 <br>
 
-### ㄴ
+## 소켓타입(Type) : 소켓함수 2번째 인자
+
+### 연결지향형 소켓(SOCK_STREAM) vs 비 연결지향형 소켓(SOCK_DGRAM)
+* 연결지향형 소켓(SOCK_STREAM) : 1대 1 컨베이너 벨트
+  1. 중간에 데이터가 소멸되지 않고 목적지로 전송된다.
+  2. 전송 순서대로 데이터가 수신된다.
+  3. 전송 데이터의 경계(Boundary)가 존재하지 않는다.
+* 비 연결지향형 소켓(SOCK_DGRAM) : 택배
+  1. 전송 데이터의 손실, 파손의 우려가 있다.
+  2. 전송되는 데이터의 경계(Boundary)가 존재한다.
+  3. 한번에 전송할 수 있는 데이터의 크기가 존재한다.
+
+## 소켓함수 3번째 인자
+
+### 소켓함수의 3번째 인자는 다음과 같은 상황이 발생할 때 필요하다.
+* 하나의 프로토콜 체계 안에 데이터의 전송방식이 동일한 프로토콜이 둘 이상 존재할 경우
+
+ex1 ) IPv4 인터넷 프로토콜 체계에서 동작하는 연결지향형 테이터 전송 소켓 
+``` c
+int tcp_socket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+```
+ex2 ) IPv4 인터넷 프로토콜 체계에서 동작하는 비 연결지향형 테이터 전송 소켓
+``` c
+int tcp_socket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
+```
