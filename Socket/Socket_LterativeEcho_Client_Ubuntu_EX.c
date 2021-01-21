@@ -1,3 +1,5 @@
+// 다수의 lterative Client
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -68,3 +70,14 @@ void error_handling(char *message){
     fputc('\n', stderr);
     exit(1);
 }
+
+// 문제점 // 
+
+// write(sock, message, strlen(message));
+// str_len = read(sock, message, BUF_SIZE-1);
+// message[str_len] = 0;
+// printf("Message From server: %s", message);
+
+// read, write 함수가 호출될 떄마다 문자열 단위로 실제 입출력이 이뤄진다.
+// 즉, 둘 이상의 write 함수호출로 전달된 문자열 정보가 묶여서 한번에 서버에 전송될 수 있다.
+// 클라이언트 또한 둘 이상의 문자열 정보를 서버로부터 돌려받아 원하는 결과값을 얻지 못할 수 있다.
