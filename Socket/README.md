@@ -108,6 +108,8 @@ ssize_t read( int fd, const void *buf, size_t nbytes);
 
 ## 프로토콜(Protocol) : 소켓함수 1번째 인자
 컴퓨터 상호간의 대화에 필요한 통신규약
+
+<img src="./image/TCP_vs_UDP.png" width="40%" height="30%" title="TCP vs UDP" ></img>
 <br>
 <br>
 
