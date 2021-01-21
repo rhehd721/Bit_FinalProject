@@ -183,3 +183,22 @@ IP를 통해 서버를 찾았다면 PORT를 이용하여 서버에서 내가 필
 * 리틀 엔디안(Little Endian) : 상위 바이트의 값을 큰 번지수에 저장
 
 네트워크상 테이터를 전송할 땐 빅 엔디안을 사용하기로 약속
+
+## Half-Close
+
+### 스트림(Stream) : 소켓을 통해 두 호스트가 연결된 상태
+
+<img src="./image/Stream.png" width="45%" height="30%" title="Stream" ></img>
+
+Half-Close 는 2개의 입출력 스티림중 1개의 스트림을 끊어버리는 것을 의미한다. 
+``` c
+#include <sys/socket.h>
+
+// sock : 종료할 소켓의 파일 디스크립터 전달
+// howto : 종료방법에 대한 정보 전달
+int shutdown(int sock, int howto);
+```
+이중 howto에 전달될 수 있는 매개변수는 다음과 같다.
+1. SHUT_RD : 입력 스트림 종료
+2. SHUT_WR : 출력 스트림 종료
+3. SHUT_RDWR : 입출력 스트림 종료
