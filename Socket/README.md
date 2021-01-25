@@ -4,7 +4,7 @@
 ---
 ## Socket 통신 
 
-### Server
+### 1. Server
 <br>
 
 1. 소켓생성 <socket 함수호출>
@@ -37,7 +37,7 @@ int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 
 ---
 
-### Client
+### 2. Client
 <br>
 
 1. 소켓연결 <connect 함수호출>
@@ -113,7 +113,7 @@ ssize_t read( int fd, const void *buf, size_t nbytes);
 <br>
 <br>
 
-### 프로토콜 체계(Protocol Family)
+### 1. 프로토콜 체계(Protocol Family)
 [헤더파일 sys/socket.h에 선언되어 있는 프로토콜 체계]
 |이름|프로토콜 체계(Protocol Family)|
 |------|---|
@@ -127,7 +127,7 @@ ssize_t read( int fd, const void *buf, size_t nbytes);
 
 ## 소켓타입(Type) : 소켓함수 2번째 인자
 
-### 연결지향형 소켓(SOCK_STREAM) vs 비 연결지향형 소켓(SOCK_DGRAM)
+### 1. 연결지향형 소켓(SOCK_STREAM) vs 비 연결지향형 소켓(SOCK_DGRAM)
 * 연결지향형 소켓(SOCK_STREAM) : 1대 1 컨베이너 벨트
   1. 중간에 데이터가 소멸되지 않고 목적지로 전송된다.
   2. 전송 순서대로 데이터가 수신된다.
@@ -139,7 +139,7 @@ ssize_t read( int fd, const void *buf, size_t nbytes);
 
 ## 소켓함수 3번째 인자
 
-### 소켓함수의 3번째 인자는 다음과 같은 상황이 발생할 때 필요하다.
+### 1. 소켓함수의 3번째 인자는 다음과 같은 상황이 발생할 때 필요하다.
 * 하나의 프로토콜 체계 안에 데이터의 전송방식이 동일한 프로토콜이 둘 이상 존재할 경우
 
 ex1 ) IPv4 인터넷 프로토콜 체계에서 동작하는 연결지향형 테이터 전송 소켓 
@@ -153,11 +153,11 @@ int tcp_socket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
 ## 소켓에 항당되는 IP주소와 PORT번호
 
-### 인터넷 주소(Internet Address)
+### 1. 인터넷 주소(Internet Address)
 * IPv4(Internet Protocol version 4) : 4Byte 주소체계
 * IPv6(Internet Protocol version 6) : 16Byte 주소체계
 
-### 클래스 별 네트워크 주소와 호스트 주소의 경계
+### 2. 클래스 별 네트워크 주소와 호스트 주소의 경계
 * 클래스 A의 첫 번쨰 바이트 범위 0 ~ 127
 * 클래스 B의 첫 번쨰 바이트 범위 128 ~ 191
 * 클래스 C의 첫 번쨰 바이트 범위 192 ~ 223
@@ -167,7 +167,7 @@ int tcp_socket = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
 * 클래스 B의 첫 번쨰 비트는 항상 10으로 시작
 * 클래스 C의 첫 번쨰 비트는 항상 110으로 시작
 
-### 소켓의 구분에 활용되는 PORT번호
+### 3. 소켓의 구분에 활용되는 PORT번호
 IP를 통해 서버를 찾았다면 PORT를 이용하여 서버에서 내가 필요로 하는 프로그램을 찾는다.
 <br>
 그러므로 PORT번호는 하나의 소켓에만 할당이 가능하다 (2이상 소켓에 할당할 수 없다.
@@ -178,7 +178,7 @@ IP를 통해 서버를 찾았다면 PORT를 이용하여 서버에서 내가 필
 
 ## 네트워크 바이트 순서
 
-### 빅 엔디안(Big Endian) vs 리틀 엔디안(Little Endian)
+### 1. 빅 엔디안(Big Endian) vs 리틀 엔디안(Little Endian)
 * 빅 엔디안(Big Endian) : 상위 바이트의 값을 작은 번지수에 저장
 * 리틀 엔디안(Little Endian) : 상위 바이트의 값을 큰 번지수에 저장
 
@@ -186,7 +186,7 @@ IP를 통해 서버를 찾았다면 PORT를 이용하여 서버에서 내가 필
 
 ## Half-Close
 
-### 스트림(Stream) : 소켓을 통해 두 호스트가 연결된 상태
+### 1. 스트림(Stream) : 소켓을 통해 두 호스트가 연결된 상태
 
 <img src="./image/Stream.png" width="45%" height="30%" title="Stream" ></img>
 
@@ -248,13 +248,13 @@ FLAG 순서
 ## 프로세스(Process)의 이해
 메모리 공간을 차지한 상태에서 실행중인 프로그램
 
-### 멀티프로세스 vs 멀티플렉싱 vs 멀티쓰레딩
+### 1. 멀티프로세스 vs 멀티플렉싱 vs 멀티쓰레딩
 
 1. 멀티프로세스 기반 서버 : 다수의 프로세스를 생성하는 방식으로 서비스 제공
 2. 멀티플렉싱 기반 서버 : 입출력 대상을 묶어서 관리하는 방식으로 서비스 제공
 3. 멀티쓰레딩 기반 서버 : 클라이언트의 수만큼 쓰레드를 생성하는 방식으로 서비스 제공
 
-### fork 함수호출을 통한 프로세스의 생성
+### 2. fork 함수호출을 통한 프로세스의 생성
 
 ``` c
 #include <unistd.h>
@@ -264,7 +264,23 @@ pid_t fork(void);
 + 부모 프로세스 : fork 함수의 반환 값은 자식 프로세스의 ID
 + 자식 프로세스 : fork 함수의 반환 값은 0
 
-### 좀비 프로세스
+### 3. 좀비 프로세스
 해당 자식 프로세스를 생성한 부모 프로세스에게 exit 함수의 인자 값이나 return문의 반환 값이 전달 되어야 한다.
 
+## 쓰레드(Thread)
+
+### 1. 프로세스 vs 스레드
++ 프로세스 : 운영체제 관점에서 별도의 실행흐름을 구성하는 단위
++ 쓰레드 : 프로세스 관점에서 별도의 실행흐름을 구성하는 단위
+
+### 2. 쓰레드 생성 및 실행
+```c
+#include <pthread.h>
+
+int pthread_create (pthread_t *restrict thread, const pthread_attr_t *restrict attr, void *(*start_routine)(void*), void *restrict arg);
+````
++ tread : 생성할 쓰레드의 ID 저장을 위한 변수의 주소 값 전달, 참고로 쓰레드는 프로새스와 마찬가지로 쓰레드의 구분을 위한 ID가 부여된다.
++ attr : 쓰레드에 부여할 특성 정보의 전달을 위한 매개변수, NULL 전달 시 기본적인 특성의 쓰레드가 생성된다.
++ start_routine : 쓰레드의 main 함수 역할을 하는, 별도 실행흐름의 시작이 되는 함수의 주소 값(함수 포인터) 전달.
++ arg : 세 번째 인자를 통해 등록된 함수가 호출될 떄 전달할 인자의 정보를 담고 있는 변수의 주소 값 전달.
 
