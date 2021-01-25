@@ -284,3 +284,5 @@ int pthread_create (pthread_t *restrict thread, const pthread_attr_t *restrict a
 + start_routine : 쓰레드의 main 함수 역할을 하는, 별도 실행흐름의 시작이 되는 함수의 주소 값(함수 포인터) 전달.
 + arg : 세 번째 인자를 통해 등록된 함수가 호출될 떄 전달할 인자의 정보를 담고 있는 변수의 주소 값 전달.
 
+## 포트포워딩(Port forwarding)
+외부에서 공인IP를 통해 시설IP에 접속하기 위한 작업
