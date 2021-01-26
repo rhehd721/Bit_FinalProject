@@ -10,38 +10,54 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 
+// error 함수
 void error_handling(char *message);
+
 int main(int argc, char* argv[]){
 
 	int serv_sock, fd;
-    	int str_len, len;
+    int str_len, len;
 	struct sockaddr_in serv_addr;
 	char message[30], buf[BUFSIZ];
-    	FILE* file = NULL;
+    FILE* file = NULL;
     
+	// IP와 PORT 안알려주면 error 메세지
 	if(argc!=3){
 		printf("Usage : %s <IP> <PORT> \n", argv[0]);
 		exit(1);
 	}
 
+	// serv_sock을 IPv4와 연결지향형으로 만들겠다 (소켓생성)
 	serv_sock = socket(PF_INET, SOCK_STREAM, 0);
     
-	if(serv_sock == -1)
+	// serv_sock이 생성되지 않으면 error 메세지
+	if(serv_sock == -1){
 		error_handling("socket() error");
-        
-	memset(&serv_addr, 0, sizeof(serv_addr));
+    }
+
+	// 주소정보 초기화
+	memset(&serv_addr, 0, sizeof(serv_addr));	// 서버소켓의 정보를 저장할 구조체를 초기화 한다.
 	serv_addr.sin_family=AF_INET;
 	serv_addr.sin_addr.s_addr=inet_addr(argv[1]);
 	serv_addr.sin_port=htons(atoi(argv[2]));
     
-	if(connect(serv_sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1) 
+	// 소켓을 이용해 서버의 정보를 지닌 구조체를 가지고 접속 요청을 한다
+	if(connect(serv_sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1){
 		error_handling("connect() error!");
+	}
 	
     // test
 	str_len=read(serv_sock, message, sizeof(message)-1);
+	// ssize_t read(int fd, void *buf, size_t nbytes);
+	// int fd : 읽을 파일의 파일 디스크립터
+ 	// void *buf : 읽어들인 데이터를 저장할 버퍼(배열)
+	// size_t nbytes : 읽어들일 데이터의 최대 길이 (buf의 길이보다 길어선 안됨)
+	// 반환값 : 읽어들인 데이터의 길이 무조건 nbytes 가 리턴되는 것은 아님. 중간에 파일의 끝을 만난다면 거기까지만 읽기 때문
 
-	if(str_len==-1)
+
+	if(str_len==-1){
 		error_handling("read() error!");
+	}
 	printf("Message from server: %s \n", message);
     
 	// jpg 
@@ -73,6 +89,7 @@ int main(int argc, char* argv[]){
 		send(serv_sock, buf, fpsize, 0);
 	}	
 
+	// 소켓과 파일 닫아주기
 	fclose(file);
 	close(serv_sock);
 	return 0;
