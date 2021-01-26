@@ -1,6 +1,9 @@
 ## TCP / IP <Linux_Ubuntu>
 리눅스는 윈도우와 달리 소켓조작을 파일조작과 동일하게 간주한다.
 
+<img src="./image/TCP_IP.png" width="40%" height="40%" title="TCP vs UDP" ></img>
+
+
 ---
 ## Socket 통신 
 

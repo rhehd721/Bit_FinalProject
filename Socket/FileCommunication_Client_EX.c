@@ -66,6 +66,7 @@ int main(int argc, char* argv[]){
     
     /* 전송할 파일 이름을 작성합니다 */
 	file = fopen("aurora.jpg" /* 파일이름 */, "rb");
+	// 텍스트 모드로 열지 바이너리 모드로 열지 rt, wt, at 텍스트 모드, rb, wb, ab 바이너리모드 이렇게 옵션
 	
     /* 파일 크기 계산 */
     // move file pointer to end
@@ -85,6 +86,12 @@ int main(int argc, char* argv[]){
 		// read from file to buf
 		// 1byte * 256 count = 256byte => buf[256];
 		int fpsize = fread(buf, 1, 256, file);
+		// size_t fread (void * DstBuf, size_t ElementSize, size_t Count, FILE * FileStream)
+		// DstBuf : 입력받은 데이터를 저장할 버퍼의 주소
+		// ElementSize : 원소 1개의 크기
+		// Count : 입력 받을 원소의 개수
+		// FileStream : 파일 스트림
+
 		nsize += fpsize;
 		send(serv_sock, buf, fpsize, 0);
 	}	

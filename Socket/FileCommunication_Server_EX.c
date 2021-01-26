@@ -55,11 +55,13 @@ int main(int argc, char *argv[])
 	if(clnt_sock==-1){
 		error_handling("accept() error");  
 	}
+
 	write(clnt_sock, message, sizeof(message));
 	int nbyte = 256;
     size_t filesize = 0, bufsize = 0;
     FILE *file = NULL;
 
+	// 쓰기모드로 바이너리 파일 열기
     file = fopen("aurora.jpg"/* 새로 만들 파일 이름 */, "wb");
 
     //ntohl(filesize);
@@ -73,6 +75,13 @@ int main(int argc, char *argv[])
     while(/*filesize != 0*/nbyte!=0) {
  		//if(filesize < 256) bufsize = filesize;
         nbyte = recv(clnt_sock, buf, bufsize, 0);
+		// int recv(int s, void *buf, size_t len, int flags);
+		// int s	: 소켓 디스크립터
+		// void *buf	: 수신할 버퍼 포인터 데이터
+		// size_t len	: 버퍼의 바이트 단위 크기
+		// int flags	: 아래와 같은 옵션을 사용할 수 있습니다.
+
+
 		//printf("filesize:%ld nbyte: %d\n", filesize, nbyte);
 
  		//filesize = filesize -nbyte;
