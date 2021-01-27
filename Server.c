@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
 	struct sockaddr_in serv_adr, clnt_adr;
 	int clnt_adr_sz;
 	pthread_t t_id;
+	socklen_t clnt_adr_size;
+
 	// 파일을 실행시킬때 port번호를 주지않으면 실행시키지 말고 error 메세지를 출력해
 	if(argc!=2) {
 		printf("Usage : %s <port>\n", argv[0]);
@@ -37,6 +39,7 @@ int main(int argc, char *argv[])
 	// 서버는 IPv4(PF_INET) 프로토콜을 사용할거고 연결지향형(SOCK_STREAM) 소켓을 사용할거야
 	serv_sock=socket(PF_INET, SOCK_STREAM, 0);
 
+	// 주소정보 초기화
 	memset(&serv_adr, 0, sizeof(serv_adr));
 	serv_adr.sin_family=AF_INET;
 	serv_adr.sin_addr.s_addr=htonl(INADDR_ANY);
@@ -52,6 +55,10 @@ int main(int argc, char *argv[])
 		clnt_adr_sz=sizeof(clnt_adr);
 		clnt_sock=accept(serv_sock, (struct sockaddr*)&clnt_adr,&clnt_adr_sz);
 		
+		if(clnt_sock==-1){
+		error_handling("accept() error");  
+		}
+
 		pthread_mutex_lock(&mutx);
 		// 새로운 연결이 형성될 때마다 변수 clnt_cnt와 배열 clnt_sock에 해당 정보를 등록한다.
 		clnt_socks[clnt_cnt++]=clnt_sock;
@@ -66,7 +73,8 @@ int main(int argc, char *argv[])
 	close(serv_sock);
 	return 0;
 }
-	
+
+
 void * handle_clnt(void * arg)
 {
 	int clnt_sock=*((int*)arg);
@@ -105,4 +113,13 @@ void error_handling(char * msg)
 	fputs(msg, stderr);
 	fputc('\n', stderr);
 	exit(1);
+}
+
+void recv_file(char * msg, int len)   // send to all
+{
+	int i;
+	pthread_mutex_lock(&mutx);
+	for(i=0; i<clnt_cnt; i++)
+		write(clnt_socks[i], msg, len);
+	pthread_mutex_unlock(&mutx);
 }
