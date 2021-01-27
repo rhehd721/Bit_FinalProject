@@ -2,10 +2,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <fcntl.h>
 #include <string.h>
+#include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
 #include <pthread.h>
 
 #define BUF_SIZE 100
@@ -24,13 +27,13 @@ int main(int argc, char *argv[])
 	struct sockaddr_in serv_addr;
 	pthread_t snd_thread, rcv_thread;
 	void * thread_return;
-	if(argc!=4) {
-		printf("Usage : %s <IP> <port> <name>\n", argv[0]);
+
+	// IP와 PORT 안알려주면 error 메세지
+	if(argc!=3) {
+		printf("Usage : %s <IP> <port> \n", argv[0]);
 		exit(1);
 	 }
-	
-	// 접속한 Client의 이름 출력
-	sprintf(name, "[%s]", argv[3]);
+	// serv_sock을 IPv4와 연결지향형으로 만들겠다 (소켓생성)
 	sock=socket(PF_INET, SOCK_STREAM, 0);
 	
 	// 주소 초기화
@@ -54,6 +57,12 @@ int main(int argc, char *argv[])
 
 	pthread_join(snd_thread, &thread_return);
 	pthread_join(rcv_thread, &thread_return);
+	// int pthread_join(pthread_t th, void **thread_return);
+	// 특정 쓰레드가 종료하기를 기다렸다가, 쓰레그가 종료된 이후 다음 진행
+	// 1. pthread_t th : 쓰레드의 ID를 받아 그 ID가 종료될때까지 실행을 지연시킨다
+	// 2. void **thread_return : 쓰레드 종료시 반환값을 받는다.
+	// 3. 반환값 : 성공할경우 쓰레드식별자인 thread에 쓰레드 식별번호를 저장하고, 0을 리턴한다. 실패했을경우 0 이 아닌 에러코드 값을 리턴한다.
+
 	close(sock);  
 	return 0;
 }
