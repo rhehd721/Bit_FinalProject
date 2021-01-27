@@ -9,7 +9,7 @@
 #include <netinet/in.h>
 #include <pthread.h>
 
-#define BUF_SIZE 100
+#define BUF_SIZE 256
 #define MAX_CLNT 256
 
 void * handle_clnt(void * arg);
@@ -77,12 +77,16 @@ int main(int argc, char *argv[])
 
 void * handle_clnt(void * arg)
 {
+	// 클라이언트 연결
 	int clnt_sock=*((int*)arg);
-	int str_len=0, i;
+
+	int str_len=0;
+	int i;
 	char msg[BUF_SIZE];
 	
-	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
+	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0){
 		send_msg(msg, str_len);
+	}
 	
 	pthread_mutex_lock(&mutx);
 	for(i=0; i<clnt_cnt; i++)   // remove disconnected client
