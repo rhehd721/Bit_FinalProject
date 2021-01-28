@@ -1,4 +1,5 @@
 // Client
+// 아직 완성되지 않은 코드입니다.
 
 #include <stdio.h>
 #include <stdlib.h>

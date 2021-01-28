@@ -14,7 +14,7 @@ Linux_Ubuntu
 1. compile <gcc -o (실행파일명) (파일경로)>
 2. run <./(파일경로)> 
 
-## Python, C 연동
+## Python, C 연동 <pdf파일 참조>
 C 코드를 파이썬에서 쓸려면 리눅스에서는 .a(정적라이브러리)나 .so(동적라이브러리)로 만들어야 한다.
 1. gcc -c -fPIC test.c
 2. gcc -shared -fPIC -o test.so test.o
