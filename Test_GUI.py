@@ -30,6 +30,7 @@ class MyApp(QWidget):
         layout.addWidget(self.label)
         layout.addWidget(btn)
 
+        # 버튼을 누루면 함수 활성화
         btn.clicked.connect(self.btnRun_clicked)
 
         self.setLayout(layout)
@@ -39,6 +40,7 @@ class MyApp(QWidget):
         self.setGeometry(300, 300, 300, 200)
         self.show()
 
+    # 동작 명령어를 눌렀을때 작동하는 부분
     def btnRun_clicked(self):
         self.label.setText("?")
         self.label.repaint()
