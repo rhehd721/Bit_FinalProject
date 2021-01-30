@@ -44,6 +44,7 @@ class MyApp(QWidget):
     def btnRun_clicked(self):
         self.label.setText("?")
         self.label.repaint()
+        # C파일 불러오기
         libc = ctypes.CDLL("./test.so")
         counter = libc.main()
 
