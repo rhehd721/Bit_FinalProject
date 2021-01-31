@@ -48,7 +48,6 @@ class MyApp(QWidget):
         libc = ctypes.CDLL("./test.so")
         counter = libc.main()
 
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MyApp()
