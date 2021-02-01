@@ -26,3 +26,14 @@ C_File = CDLL(‘./test.so’) ## DLL을 읽어옴
 
 res_int = C_File.main()
 ```
+
+## Mysql
+[참고 blog](https://m.blog.naver.com/jesang1/221993846056)
+
+
+1. 설치 : sudo apt-get install mysql-server
+2. 3306Port Open : sudo ufw allow mysql
+3. 실행 : sudo systemctl start mysql
+4. Ubuntu 서버 재시작시 Mysql 자동 재시작 : sudo systemctl enable mysql
+5. Mysql 접속 : sudo systemctl enable mysql
+6. Version 확인 : mysql> show variables like "%version%";

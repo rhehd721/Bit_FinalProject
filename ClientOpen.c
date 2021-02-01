@@ -57,6 +57,9 @@ int main(int argc, char *argv[])
 
 
 
+
+
+
 	
 	pthread_create(&snd_thread, NULL, send_msg, (void*)&sock);
 	pthread_create(&rcv_thread, NULL, recv_msg, (void*)&sock);
