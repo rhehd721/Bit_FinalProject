@@ -15,7 +15,6 @@
 
 void * send_msg(void * arg);
 void * recv_msg(void * arg);
-void error_handling(char * msg);
 
 char name[NAME_SIZE]="[DEFAULT]";
 char msg[BUF_SIZE];
@@ -26,25 +25,7 @@ int main(int argc, char *argv[])
 	struct sockaddr_in serv_addr;
 	pthread_t snd_thread, rcv_thread;
 	void * thread_return;
-	if(argc!=4) {
-		printf("Usage : %s <IP> <port> <name>\n", argv[0]);
-		exit(1);
-	 }
-	
-	// 접속한 Client의 이름 출력
-	sprintf(name, "[%s]", argv[3]);
-	sock=socket(PF_INET, SOCK_STREAM, 0);
-	
-	// 주소 초기화
-	memset(&serv_addr, 0, sizeof(serv_addr));
-	serv_addr.sin_family=AF_INET;
-	serv_addr.sin_addr.s_addr=inet_addr(argv[1]);
-	serv_addr.sin_port=htons(atoi(argv[2]));
-	
-	// 소켓을 이용해 서버의 정보를 지닌 구조체를 가지고 접속 요청을 한다
-	if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1){
-		error_handling("connect() error");
-	}
+
 	
 	pthread_create(&snd_thread, NULL, send_msg, (void*)&sock);
 	pthread_create(&rcv_thread, NULL, recv_msg, (void*)&sock);
@@ -98,11 +79,4 @@ void * recv_msg(void * arg)   // read thread main
 		fputs(name_msg, stdout);
 	}
 	return NULL;
-}
-
-void error_handling(char *msg)
-{
-	fputs(msg, stderr);
-	fputc('\n', stderr);
-	exit(1);
 }

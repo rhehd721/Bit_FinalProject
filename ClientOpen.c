@@ -12,6 +12,8 @@
 
 #define BUF_SIZE 100
 #define NAME_SIZE 20
+// #define IP
+// #define PORT 
 
 void * send_msg(void * arg);
 void * recv_msg(void * arg);
@@ -26,18 +28,23 @@ int main(int argc, char *argv[])
 	struct sockaddr_in serv_addr;
 	pthread_t snd_thread, rcv_thread;
 	void * thread_return;
-	if(argc!=4) {
-		printf("Usage : %s <IP> <port> <name>\n", argv[0]);
-		exit(1);
-	 }
+
+    // IP, PORT, NAME이 지정되지 않았다면 오류메세지
+	// if(argc!=4) {
+	// 	printf("Usage : %s <IP> <port> <name>\n", argv[0]);
+	// 	exit(1);
+	//  }
 	
 	// 접속한 Client의 이름 출력
-	sprintf(name, "[%s]", argv[3]);
+	// sprintf(name, "[%s]", argv[3]);
+
+    // 소켓 지정
 	sock=socket(PF_INET, SOCK_STREAM, 0);
 	
 	// 주소 초기화
 	memset(&serv_addr, 0, sizeof(serv_addr));
 	serv_addr.sin_family=AF_INET;
+    // 파라미터 수정 필요 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	serv_addr.sin_addr.s_addr=inet_addr(argv[1]);
 	serv_addr.sin_port=htons(atoi(argv[2]));
 	
@@ -45,6 +52,11 @@ int main(int argc, char *argv[])
 	if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1){
 		error_handling("connect() error");
 	}
+
+
+
+
+
 	
 	pthread_create(&snd_thread, NULL, send_msg, (void*)&sock);
 	pthread_create(&rcv_thread, NULL, recv_msg, (void*)&sock);
