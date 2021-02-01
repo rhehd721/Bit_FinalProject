@@ -1,4 +1,7 @@
 # Bit_FinalProject
+[DB]("/DB")
+
+[Socket]("/Socket")
 
 ## 개발환경 
 Linux_Ubuntu
@@ -29,7 +32,6 @@ res_int = C_File.main()
 
 ## Mysql
 [참고 blog](https://m.blog.naver.com/jesang1/221993846056)
-
 
 1. 설치 : sudo apt-get install mysql-server
 2. 3306Port Open : sudo ufw allow mysql
