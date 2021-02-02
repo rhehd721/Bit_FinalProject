@@ -1,4 +1,4 @@
-// Server가 Client에게 Packet을 보내는 코드
+// Clinet Open
 
 // Client
 
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 	// 주소 초기화
 	memset(&serv_addr, 0, sizeof(serv_addr));
 	serv_addr.sin_family=AF_INET;
-    // 파라미터 수정 필요 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    // 파라미터 수정 필요 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	serv_addr.sin_addr.s_addr=inet_addr(argv[1]);
 	serv_addr.sin_port=htons(atoi(argv[2]));
 	
@@ -81,40 +81,11 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void * send_msg(void * arg)   // send thread main
-{
-	int sock=*((int*)arg);
-	char name_msg[NAME_SIZE+BUF_SIZE];
-	while(1) 
-	{
-		fgets(msg, BUF_SIZE, stdin);
-		if(!strcmp(msg,"q\n")||!strcmp(msg,"Q\n")) 
-		{
-			close(sock);
-			exit(0);
-		}
-		sprintf(name_msg,"%s %s", name, msg);
-		write(sock, name_msg, strlen(name_msg));
-	}
-	return NULL;
-}
 
-void * recv_msg(void * arg)   // read thread main
-{
-	int sock=*((int*)arg);
-	char name_msg[NAME_SIZE+BUF_SIZE];
-	int str_len;
-	while(1)
-	{
-		str_len=read(sock, name_msg, NAME_SIZE+BUF_SIZE-1);
-		if(str_len==-1) 
-			return (void*)-1;
-		name_msg[str_len]=0;
-		fputs(name_msg, stdout);
-	}
-	return NULL;
-}
 
+
+
+// error 출력 함수
 void error_handling(char *msg)
 {
 	fputs(msg, stderr);
