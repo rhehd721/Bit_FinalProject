@@ -20,7 +20,12 @@ void error_handling(char * msg);
 
 // 서버에 접속한 클라이언트의 소켓 관리를 위한 변수와 배열
 int clnt_cnt=0;
-int clnt_socks[MAX_CLNT];
+int clnt_socks[MAX_CLNT/2];
+
+// 서버에 접속한 클라이언트의 Raspberry 소켓 관리를 위한 변수와 배열
+int clnt_Raspberry_cnt=0;
+int clnt_Raspberry_socks[MAX_CLNT/2];
+
 pthread_mutex_t mutx;
 
 int main(int argc, char *argv[])
@@ -82,9 +87,11 @@ void * handle_clnt(void * arg)
 	int str_len=0, i;
 	char msg[BUF_SIZE];
 	
+    // packet이 도착했다면 전송함수 호출
 	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
 		send_msg(msg, str_len);
 	
+    // 
 	pthread_mutex_lock(&mutx);
 	for(i=0; i<clnt_cnt; i++)   // remove disconnected client
 	{
@@ -110,6 +117,8 @@ void send_msg(char * msg, int len)   // send to all
 		write(clnt_socks[i], msg, len);
 	pthread_mutex_unlock(&mutx);
 }
+
+
 void error_handling(char * msg)
 {
 	fputs(msg, stderr);
