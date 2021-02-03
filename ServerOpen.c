@@ -40,10 +40,13 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
   
+	// mutex 초기화
 	pthread_mutex_init(&mutx, NULL);
+
 	// 서버는 IPv4(PF_INET) 프로토콜을 사용할거고 연결지향형(SOCK_STREAM) 소켓을 사용할거야
 	serv_sock=socket(PF_INET, SOCK_STREAM, 0);
 
+	// 내 서버의 주소정보 배당
 	memset(&serv_adr, 0, sizeof(serv_adr));
 	serv_adr.sin_family=AF_INET;
 	serv_adr.sin_addr.s_addr=htonl(INADDR_ANY);
@@ -59,7 +62,7 @@ int main(int argc, char *argv[])
 	while(1)
 	{
 		clnt_adr_sz=sizeof(clnt_adr);
-        // 클라이언트 접속 허용
+        // 클라이언트 대기자들 접속 허용
 		clnt_sock=accept(serv_sock, (struct sockaddr*)&clnt_adr,&clnt_adr_sz);
 		
         // mutex key를 client에게 전달해준다?
