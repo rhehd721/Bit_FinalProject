@@ -84,7 +84,6 @@ int main(int argc, char *argv[])
 
 
 
-
 // error 출력 함수
 void error_handling(char *msg)
 {
@@ -92,3 +91,45 @@ void error_handling(char *msg)
 	fputc('\n', stderr);
 	exit(1);
 }
+
+
+
+
+
+
+
+
+
+// void * send_msg(void * arg)   // send thread main
+// {
+// 	int sock=*((int*)arg);
+// 	char name_msg[NAME_SIZE+BUF_SIZE];
+// 	while(1) 
+// 	{
+// 		fgets(msg, BUF_SIZE, stdin);
+// 		if(!strcmp(msg,"q\n")||!strcmp(msg,"Q\n")) 
+// 		{
+// 			close(sock);
+// 			exit(0);
+// 		}
+// 		sprintf(name_msg,"%s %s", name, msg);
+// 		write(sock, name_msg, strlen(name_msg));
+// 	}
+// 	return NULL;
+// }
+
+// void * recv_msg(void * arg)   // read thread main
+// {
+// 	int sock=*((int*)arg);
+// 	char name_msg[NAME_SIZE+BUF_SIZE];
+// 	int str_len;
+// 	while(1)
+// 	{
+// 		str_len=read(sock, name_msg, NAME_SIZE+BUF_SIZE-1);
+// 		if(str_len==-1) 
+// 			return (void*)-1;
+// 		name_msg[str_len]=0;
+// 		fputs(name_msg, stdout);
+// 	}
+// 	return NULL;
+// }

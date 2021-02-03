@@ -37,7 +37,9 @@ void * send_packet(void * arg)   // send thread main
 	char name_msg[NAME_SIZE+BUF_SIZE];
 	while(1) 
 	{
+		// 메세지를 받아온다
 		fgets(msg, BUF_SIZE, stdin);
+		// 받아온 메세지가 만약 나가기라면
 		if(!strcmp(msg,"q\n")||!strcmp(msg,"Q\n")) 
 		{
 			close(sock);
