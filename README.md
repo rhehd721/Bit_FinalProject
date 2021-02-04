@@ -39,3 +39,6 @@ res_int = C_File.main()
 4. Ubuntu 서버 재시작시 Mysql 자동 재시작 : sudo systemctl enable mysql
 5. Mysql 접속 : sudo systemctl enable mysql
 6. Version 확인 : mysql> show variables like "%version%";
+
+## .encode('utf-8')
+python에서 c언어로 문자열을 전송할때 < 문자열.encode('utf-8') > 으로 전달해야한다.
