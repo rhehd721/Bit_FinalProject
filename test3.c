@@ -1,5 +1,7 @@
 // Client
 
+// 중간 완성작
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -11,22 +13,20 @@
 #define BUF_SIZE 100
 #define NAME_SIZE 20
 
-void * send_msg(void * arg);
 void error_handling(char * msg);
 
-char name[NAME_SIZE]="[DEFAULT]";
+char Command[NAME_SIZE]="[DEFAULT]";
 char msg[BUF_SIZE];
 
-int main(char IP[],char port[],char name[])
+int main(char IP[],char port[],char Commands[])
 {
 	int sock;
 	struct sockaddr_in serv_addr;
 	pthread_t snd_thread, rcv_thread;
 	void * thread_return;
 
-	
 	// 접속한 Client의 이름 출력
-	sprintf(name, "[%s]", name);
+	sprintf(Command, "[%s]", Commands);
 	sock=socket(PF_INET, SOCK_STREAM, 0);
 	
 	// 주소 초기화
@@ -40,12 +40,11 @@ int main(char IP[],char port[],char name[])
 		error_handling("connect() error");
 	}
 	
-	write(sock, name, strlen(name));
+	write(sock, Command, strlen(Command));
 
 	close(sock);  
 	return 0;
 }
-
 
 void error_handling(char *msg)
 {
