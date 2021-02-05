@@ -14,11 +14,14 @@
 #define NAME_SIZE 20
 
 void * send_command(void * arg);
-void * recv_file(void * arg);
+// void * recv_file(void * arg);
 void error_handling(char * msg);
 
 char name[NAME_SIZE]="[DEFAULT]";
 char command[BUF_SIZE];
+
+int start = 0;
+int * start_ptr;
 
 int main(char * IP_NUM,char * PORT_NUM,char * USER_NAME)
 {
@@ -44,10 +47,10 @@ int main(char * IP_NUM,char * PORT_NUM,char * USER_NAME)
 	}
 	
 	pthread_create(&snd_thread, NULL, send_command, (void*)&sock);
-	pthread_create(&rcv_thread, NULL, recv_file, (void*)&sock);
+	// pthread_create(&rcv_thread, NULL, recv_file, (void*)&sock);
 
 	pthread_join(snd_thread, &thread_return);
-	pthread_join(rcv_thread, &thread_return);
+	// pthread_join(rcv_thread, &thread_return);
 
 	close(sock);  
 	return 0;
@@ -58,11 +61,13 @@ void * send_command(void * arg)   // send thread main
 {
 	int sock=*((int*)arg);
 	char name_command[NAME_SIZE+BUF_SIZE];
-	while(1) 
+	while(1)
 	{
-		fgets(command, BUF_SIZE, stdin);
-		sprintf(name_command,"%s %s", name, command);
-		write(sock, name_command, strlen(name_command));
+		if (*start_ptr == 1){
+			sprintf(name_command,"%s %s", name, "start");
+			write(sock, name_command, strlen(name_command));
+			*start_ptr = 0;
+		}
 	}
 	return NULL;
 }
@@ -89,4 +94,8 @@ void error_handling(char *msg)
 	fputs(msg, stderr);
 	fputc('\n', stderr);
 	exit(1);
+}
+
+void Event_Start(){
+	* start_ptr = 1;
 }

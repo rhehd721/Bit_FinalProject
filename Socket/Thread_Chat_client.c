@@ -71,7 +71,7 @@ void * send_msg(void * arg)   // send thread main
 	while(1) 
 	{
 		fgets(msg, BUF_SIZE, stdin);
-		if(!strcmp(msg,"q\n")||!strcmp(msg,"Q\n")) 
+		if(!strcmp(msg,"q\n")||!strcmp(msg,"Q\n"))
 		{
 			close(sock);
 			exit(0);
