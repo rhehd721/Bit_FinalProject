@@ -16,12 +16,13 @@
 void * send_command(void * arg);
 // void * recv_file(void * arg);
 void error_handling(char * msg);
+void Event_Start();
 
 char name[NAME_SIZE]="[DEFAULT]";
 char command[BUF_SIZE];
 
 int start = 0;
-int * start_ptr;
+int * start_ptr = &start;
 
 int main(char * IP_NUM,char * PORT_NUM,char * USER_NAME)
 {

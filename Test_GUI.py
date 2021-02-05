@@ -4,6 +4,7 @@ from PyQt5.QtCore import Qt
 import ctypes
 
 
+
 class MyApp(QWidget):
 
     def __init__(self):
@@ -11,6 +12,7 @@ class MyApp(QWidget):
         self.initUI()
 
     def initUI(self):
+        
         # 라벨 생성 및 센터 배치
         self.label = QLabel('Label', self)
         self.label.setAlignment(Qt.AlignCenter)
@@ -39,14 +41,16 @@ class MyApp(QWidget):
         self.setLayout(layout)
         self.setGeometry(300, 300, 300, 200)
         self.show()
+        
 
     # 동작 명령어를 눌렀을때 작동하는 부분
     def btnRun_clicked(self):
+        libc = ctypes.CDLL("./test.so")
+        main = libc.main("127.0.0.1".encode('utf-8'), "8080".encode('utf-8'), "park".encode('utf-8'))
         self.label.setText("?")
         self.label.repaint()
         # C파일 불러오기
-        libc = ctypes.CDLL("./test.so")
-        counter = libc.main()
+        counter = libc.Event_Start()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
