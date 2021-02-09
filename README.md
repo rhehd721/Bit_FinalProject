@@ -49,9 +49,11 @@ res_int = C_File.main()
 1. 생성 : CREATE DATABASE (DataBaseName);
 2. 확인 : SHOW DATABASES;
 3. 새로운 사용자 생성 : CREATE USER 'newUser'@'localhost' IDENTIFIED BY 'mysql password';
-4. 변경사항 새로고침 : FLUSH PRIVILEGES; 
+4. 변경사항 새로고침 : FLUSH PRIVILEGES;
 5. 권한 부여 : GRANT ALL PRIVILEGES ON 데이터베이스이름.* FOR'권할을 부여할 사용자'@'localhost';
 6. DB 보기 : SHOW GRANTS FOR'UserName'@'localhost';
+7. 새로운 사용자 로그인 : mysql -u userName -p
+8. 생성한 DB 사용 : USE DBname;
 
 ## .encode('utf-8')
 python에서 c언어로 문자열을 전송할때 < 문자열.encode('utf-8') > 으로 전달해야한다.
