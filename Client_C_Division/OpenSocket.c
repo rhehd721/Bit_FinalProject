@@ -13,13 +13,11 @@ void error_handling(char * msg);
 
 char name[NAME_SIZE] = "[DEFAULT]";
 
-void OpenSocket(char I[],char po[],char na[])
+int OpenSocket(char * I,char * po)
 {
 	int sock;
 	struct sockaddr_in serv_addr;
 	
-	// 접속한 Client의 이름 출력
-	sprintf(name, "[%s]", na);
 	sock=socket(PF_INET, SOCK_STREAM, 0);
 	
 	// 주소 초기화
@@ -33,7 +31,7 @@ void OpenSocket(char I[],char po[],char na[])
 		error_handling("connect() error");
 	}
 	
-	return (void*)&sock, &name;
+	return sock;
 }
 
 void error_handling(char *msg)

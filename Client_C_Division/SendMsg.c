@@ -11,18 +11,16 @@
 #define BUF_SIZE 100
 #define NAME_SIZE 20
 
-void * send_msg(void * arg);
+void SendMsg(int socket, char *name, char *message);
 void error_handling(char * msg);
 
-char msg[BUF_SIZE];
-
-void * send_msg(void * arg, char *name, char *message)   // send thread main
+void SendMsg(int socket, char *name, char *message)   // send thread main
 {
-	int sock=*((int*)arg);
+	int sock= socket;
 	char name_msg[NAME_SIZE+BUF_SIZE];
 	
-	if(*message == "Start"){
-		sprintf(name_msg,"%s %s", *name, "1");
+	if(message == "Start"){
+		sprintf(name_msg,"%s %s", name, "1");
 		write(sock, name_msg, strlen(name_msg));
 	}
 	else{
