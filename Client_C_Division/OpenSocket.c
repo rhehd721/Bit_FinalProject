@@ -30,6 +30,8 @@ int OpenSocket(char * I,char * po)
 	if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1){
 		error_handling("connect() error");
 	}
+
+	write(sock, "test", strlen("test"));
 	
 	return sock;
 }

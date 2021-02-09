@@ -95,6 +95,8 @@ void * handle_clnt(void * arg)
 void send_msg(char * msg, int len)   // send to all
 {
 	int i;
+    printf("hello \n");
+    printf(" %s ", msg);
 	pthread_mutex_lock(&mutx);
 	for(i=0; i<clnt_cnt; i++)
 		write(clnt_socks[i], msg, len);
