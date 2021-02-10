@@ -43,11 +43,30 @@
 8. 생성한 DB 사용 : USE DBname;
 
 ### ERROR
+한글 사용시 발생하는 에러
 
 ```sql
 ERROR 1366 (HY000): Incorrect string value: '\xED\x95\x9C\xEA\xB8\x80...' for column 'name' at row 1
 ```
 
+1. whereis mysql (MySQL의 config 파일 위치 찾기)
+2. cd /etc/mysql (my.cnf파일이 있는 폴더로 이동)
+3. sudo vi my.cnf (root 권한으로 아래 내용을 설정파일의 제일 밑에 입력 후, 저장)
 ```sql
-alter table 테이블명 convert to character set utf8;
+[mysql]
+default-character-set = utf8
+
+[client]
+default-character-set = utf8
+
+[mysqld]
+character-set-server = utf8
+collation-server = utf8_general_ci
+init_connect=’SET NAMES utf8’
 ```
+4. sudo service mysql(mysqld) restart (MySQL 서비스 재시작)
+5. 설정이 끝났으면 캐릭터셋을 확인하기 위해 MySQL에 접속해 status; 명령어를 입력.
+6. 이미 만드어진 table 수정 : ALTER TABLE tableName CONVERT TO character SET utf8;
+
+### ERROR 1184
+/etc/mysql my.cnf 에서 init부분 오류
