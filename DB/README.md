@@ -42,6 +42,26 @@
 7. 새로운 사용자 로그인 : mysql -u userName -p
 8. 생성한 DB 사용 : USE DBname;
 
+### mysql.h 연동
+
+1. mysql.h 없을 시 다운
+```
+apt-get install libmysqlclient-dev
+```
+
+2. mysql.h 위치 찾는 명령어
+```
+mysql_config --cflags 
+```
+3. include  mysql.h 방법
+```
+#include "/usr/include/mysql/mysql.h"     (위에서 찾은 위치경로를 입력합니다)
+```
+4. 컴파일 방법
+```
+gcc -o sqlprogtam sqlprogram.c -lmysqlclient
+```
+
 ### ERROR
 한글 사용시 발생하는 에러
 
