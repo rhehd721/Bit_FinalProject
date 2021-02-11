@@ -54,6 +54,8 @@ class MyApp(QWidget):
         sock = self.socket
         SendMsg = ctypes.CDLL("./SendMsg.so")
         main = SendMsg.SendMsg(sock, "park".encode('utf-8'), "Start".encode('utf-8') )
+        SendFile = ctypes.CDLL("./SendFile.so")
+        main = SendFile.SendFile(sock)
         self.label.setText("Start")
         self.label.repaint()
 

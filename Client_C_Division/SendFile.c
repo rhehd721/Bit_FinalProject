@@ -10,20 +10,18 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 
-// error 함수
-void error_handling(char *message);
-
 int SendFile(int socket){
+    // 소켓의 정보를 받아온다.
     int sock= socket;
 
     FILE* file = NULL;
-    char message[30], buf[BUFSIZ];
+    char buf[BUFSIZ];
 
     size_t fsize, nsize = 0;
 	size_t fsize2;
     
     /* 전송할 파일 이름을 작성합니다 */
-	file = fopen("aurora.jpg" /* 파일이름 */, "rb");
+	file = fopen("test.txt" /* 파일이름 */, "rb");
 	// 텍스트 모드로 열지 바이너리 모드로 열지 rt, wt, at 텍스트 모드, rb, wb, ab 바이너리모드 이렇게 옵션
 	
     /* 파일 크기 계산 */
@@ -34,10 +32,6 @@ int SendFile(int socket){
 	// move file pointer to first
 	fseek(file, 0, SEEK_SET);
 
-	// send file size first
-	// fsize2 = htonl(fsize);
-	// send file size
-	// send(serv_sock, &fsize2, sizeof(fsize), 0);
 
 	// send file contents
 	while (nsize!=fsize) {
@@ -54,7 +48,7 @@ int SendFile(int socket){
 		send(sock, buf, fpsize, 0);
 	}	
 
-	// 소켓과 파일 닫아주기
+	// 파일 닫아주기
 	fclose(file);
 	return 0;
 }
