@@ -13,7 +13,8 @@
 // error 함수
 void error_handling(char *message);
 
-int SendFile(){
+int SendFile(int socket){
+    int sock= socket;
 
     FILE* file = NULL;
     char message[30], buf[BUFSIZ];
@@ -50,11 +51,10 @@ int SendFile(){
 		// FileStream : 파일 스트림
 
 		nsize += fpsize;
-		send(serv_sock, buf, fpsize, 0);
+		send(sock, buf, fpsize, 0);
 	}	
 
 	// 소켓과 파일 닫아주기
 	fclose(file);
-	close(serv_sock);
 	return 0;
 }
