@@ -35,7 +35,7 @@ int RcvFlie(int argc, char *argv[])
     FILE *file = NULL;
 
 	// 쓰기모드로 바이너리 파일 열기
-    file = fopen("test.txt"/* 새로 만들 파일 이름 */, "wb");
+    file = fopen("test.txt"/* 새로 만들 파일 이름 */, "wt");
 
     bufsize = 256;
 

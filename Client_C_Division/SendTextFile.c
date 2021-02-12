@@ -21,7 +21,7 @@ int SendFile(int socket){
 	size_t fsize2;
     
     /* 전송할 파일 이름을 작성합니다 */
-	file = fopen("test.txt" /* 파일이름 */, "rb");
+	file = fopen("test.txt" /* 파일이름 */, "rt");
 	// 텍스트 모드로 열지 바이너리 모드로 열지 rt, wt, at 텍스트 모드, rb, wb, ab 바이너리모드 이렇게 옵션
 	
     /* 파일 크기 계산 */
