@@ -62,7 +62,7 @@ mysql_config --cflags
 gcc -o sqlprogtam sqlprogram.c -lmysqlclient
 ```
 
-### ERROR
+### ERROR 1366
 한글 사용시 발생하는 에러
 
 ```sql
@@ -82,7 +82,7 @@ default-character-set = utf8
 [mysqld]
 character-set-server = utf8
 collation-server = utf8_general_ci
-init_connect=’SET NAMES utf8’
+init_connect='SET NAMES utf8'
 ```
 4. sudo service mysql(mysqld) restart (MySQL 서비스 재시작)
 5. 설정이 끝났으면 캐릭터셋을 확인하기 위해 MySQL에 접속해 status; 명령어를 입력.
