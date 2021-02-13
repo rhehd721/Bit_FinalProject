@@ -1,3 +1,13 @@
+
+/* server.c */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+
 void * recv_msg(void * arg)   // read thread main
 {
 	int sock=*((int*)arg);
@@ -25,14 +35,6 @@ void * recv_msg(void * arg)   // read thread main
 
 
 
-/* server.c */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
 
 void error_handling(char *message);
 
