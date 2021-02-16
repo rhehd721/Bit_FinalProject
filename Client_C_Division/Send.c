@@ -16,16 +16,18 @@
 void SendCommand(int socket, char *name, char *message);
 int SendFile(int socket, int Type);
 
-void error_handling(char * msg);
 
 // 소켓정보와 이름과 메세지를 받아 Command를 보낸다.
 void SendCommand(int socket, char *name, char *message)   // send thread main
 {
+    printf("SEND START");
 	int sock= socket;
 	char name_msg[NAME_SIZE+BUF_SIZE];
 	
     sprintf(name_msg,"%s_%s", name, "1");
     write(sock, name_msg, strlen(name_msg));
+
+    printf("SEND END");
 
 }
 
@@ -73,12 +75,6 @@ int SendFile(int socket, int Type){
 
 	// 파일 닫아주기
 	fclose(file);
+    
 	return 0;
-}
-
-void error_handling(char *msg)
-{
-	fputs(msg, stderr);
-	fputc('\n', stderr);
-	exit(1);
 }

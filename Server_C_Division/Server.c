@@ -87,7 +87,7 @@ void * handle_clnt(void * arg)
 		}
 	}
 	clnt_cnt--;
-	pthread_mutex_unlock(&mutx);
+	pthread_mutex_unlock(&mutx); 
 	close(clnt_sock);
 	return NULL;
 }

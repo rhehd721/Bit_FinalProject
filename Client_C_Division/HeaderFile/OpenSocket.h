@@ -1,4 +1,5 @@
 // Client
+// 완료
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,13 +9,12 @@
 #include <sys/socket.h>
 #include <pthread.h>
 
-#define NAME_SIZE 20
 void error_handling(char * msg);
 
-char name[NAME_SIZE] = "[DEFAULT]";
-
+// IP와 PORT 받아와서 소켓 열기
 int OpenSocket(char * I,char * po)
 {
+	printf("OPEN START");
 	int sock;
 	struct sockaddr_in serv_addr;
 	
@@ -31,7 +31,7 @@ int OpenSocket(char * I,char * po)
 		error_handling("connect() error");
 	}
 
-	write(sock, "test", strlen("test"));
+	printf("OPEN END");
 	
 	return sock;
 }
