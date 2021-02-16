@@ -1,20 +1,13 @@
 // Client
 // 완료
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <pthread.h>
-
 void error_handling(char * msg);
 
 // IP와 PORT 받아와서 소켓 열기
 int OpenSocket(char * I,char * po)
 {
-	printf("OPEN START");
+	fputs("OPEN START\n", stderr);
+
 	int sock;
 	struct sockaddr_in serv_addr;
 	
@@ -31,7 +24,7 @@ int OpenSocket(char * I,char * po)
 		error_handling("connect() error");
 	}
 
-	printf("OPEN END");
+	fputs("OPEN END\n", stderr);
 	
 	return sock;
 }

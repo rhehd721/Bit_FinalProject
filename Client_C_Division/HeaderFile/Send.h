@@ -1,14 +1,5 @@
 /* client.c */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <netinet/in.h>
 
 #define BUF_SIZE 100
 #define NAME_SIZE 20
@@ -20,15 +11,14 @@ int SendFile(int socket, int Type);
 // 소켓정보와 이름과 메세지를 받아 Command를 보낸다.
 void SendCommand(int socket, char *name, char *message)   // send thread main
 {
-    printf("SEND START");
+	fputs("SEND START\n", stderr);
 	int sock= socket;
 	char name_msg[NAME_SIZE+BUF_SIZE];
 	
     sprintf(name_msg,"%s_%s", name, "1");
     write(sock, name_msg, strlen(name_msg));
 
-    printf("SEND END");
-
+	fputs("SEND END\n", stderr);
 }
 
 int SendFile(int socket, int Type){

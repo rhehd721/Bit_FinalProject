@@ -1,12 +1,5 @@
 /* server.c */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-
 #define BUF_SIZE 100
 #define NAME_SIZE 20
 
@@ -20,6 +13,7 @@ void RecvCommand(int socket)   // read thread main
 		str_len=read(socket, Command, NAME_SIZE+BUF_SIZE-1);
 		if(str_len != -1){
             Command[str_len]=0;
+			fputs("Recv", stderr);
             fputs(Command, stdout);
             }
 	}

@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.html": "html",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "opensocket.h": "c"
     }
 }
