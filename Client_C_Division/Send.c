@@ -10,7 +10,26 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 
-int SendFile(int socket){
+#define BUF_SIZE 100
+#define NAME_SIZE 20
+
+void SendCommand(int socket, char *name, char *message);
+int SendFile(int socket, int Type);
+
+void error_handling(char * msg);
+
+// 소켓정보와 이름과 메세지를 받아 Command를 보낸다.
+void SendCommand(int socket, char *name, char *message)   // send thread main
+{
+	int sock= socket;
+	char name_msg[NAME_SIZE+BUF_SIZE];
+	
+    sprintf(name_msg,"%s_%s", name, "1");
+    write(sock, name_msg, strlen(name_msg));
+
+}
+
+int SendFile(int socket, int Type){
     // 소켓의 정보를 받아온다.
     int sock= socket;
 
@@ -18,11 +37,15 @@ int SendFile(int socket){
     char buf[BUFSIZ];
 
     size_t fsize, nsize = 0;
-	size_t fsize2;
     
     /* 전송할 파일 이름을 작성합니다 */
-	file = fopen("test.txt" /* 파일이름 */, "rt");
-	// 텍스트 모드로 열지 바이너리 모드로 열지 rt, wt, at 텍스트 모드, rb, wb, ab 바이너리모드 이렇게 옵션
+    // Image 경우 1, Txt경우 0
+    if (Type == 1){
+	    file = fopen("dog.jpg" /* 파일이름 */, "rb");
+	}
+    else{
+        file = fopen("dog.txt" /* 파일이름 */, "rt");
+    }
 	
     /* 파일 크기 계산 */
     // move file pointer to end
@@ -51,4 +74,11 @@ int SendFile(int socket){
 	// 파일 닫아주기
 	fclose(file);
 	return 0;
+}
+
+void error_handling(char *msg)
+{
+	fputs(msg, stderr);
+	fputc('\n', stderr);
+	exit(1);
 }
