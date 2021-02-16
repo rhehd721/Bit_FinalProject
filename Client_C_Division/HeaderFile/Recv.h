@@ -14,7 +14,8 @@ void RecvCommand(int socket)   // read thread main
 		if(str_len != -1){
             Command[str_len]=0;
 			fputs("Recv", stderr);
-            fputs(Command, stdout);
+			fputs(Command, stderr);
+            // fputs(Command, stdout);
             }
 	}
 	fputs("RECV END\n", stderr);
