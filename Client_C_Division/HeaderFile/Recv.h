@@ -5,7 +5,7 @@
 
 void RecvCommand(int socket)   // read thread main
 {
-    printf("RECV START");
+	fputs("RECV START\n", stderr);
 	char Command[NAME_SIZE+BUF_SIZE];
 	int str_len;
 	while(1)
@@ -17,7 +17,7 @@ void RecvCommand(int socket)   // read thread main
             fputs(Command, stdout);
             }
 	}
-    printf("RECV END");
+	fputs("RECV END\n", stderr);
 }
 
 

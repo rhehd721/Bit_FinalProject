@@ -26,15 +26,15 @@ int main(){
 
     SendCommand(sock, "park", "world");
 
-fputs("2\n", stderr);
+    fputs("2\n", stderr);
     sleep(5);
 
-fputs("3\n", stderr);
+    fputs("3\n", stderr);
 
     RecvCommand(sock);
 
-fputs("4\n", stderr);
+    fputs("4\n", stderr);
     EndSocket(sock);
 
-fputs("5\n", stderr);
+    fputs("5\n", stderr);
 }
