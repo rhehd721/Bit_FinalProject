@@ -1,7 +1,7 @@
 # Bit_FinalProject
-[DB](https://github.com/rhehd721/Bit_FinalProject/tree/main/DB)
+[DB]("./DB")
 
-[Socket](https://github.com/rhehd721/Bit_FinalProject/tree/main/Socket)
+[Socket]("./Socket")
 
 ## 개발환경 
 Linux_Ubuntu
