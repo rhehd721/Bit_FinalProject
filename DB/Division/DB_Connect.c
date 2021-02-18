@@ -8,7 +8,7 @@
 // DB정보 
 #define DB_HOST "127.0.0.1"
 #define DB_USER "test"
-#define DB_PASS "1234"
+#define DB_PASS "1005"
 #define DB_NAME "test"
 #define CHOP(x) x[strlen(x) - 1] = ' '
     
@@ -47,55 +47,4 @@ int main(void)
         fprintf(stderr, "Mysql connection error : %s", mysql_error(&conn));
         return 1;
     }
-
-    // sql에 query를 날린다.
-    // 정상적으로 query가 보내졌다면 0을 return
-    query_stat = mysql_query(connection, "select * from address");
-    if (query_stat != 0)
-    {
-        fprintf(stderr, "Mysql query error : %s", mysql_error(&conn));
-        return 1;
-    }
-    
-    // 쿼리로부터 받은 결과값을 mysql_store_result을 통해 받아온다
-    sql_result = mysql_store_result(connection);
-    
-    printf("%+11s %-30s %-10s", "이름", "주소", "전화번호");
-    // sql_result로부터 받아온 값들을 하나씩 출력한다.
-    while ( (sql_row = mysql_fetch_row(sql_result)) != NULL )
-    {
-        printf("%+11s %-30s %-10s", sql_row[0], sql_row[1], sql_row[2]);
-    }
-
-    // 더이상 row(값)이 필요없다면 메모리를 돌려준다.
-    mysql_free_result(sql_result);
-
-    // 추가적으로 DB에 입력할 정보들을 사용자로부터 받아온다.
-    printf("이름 :");
-    fgets(name, 12, stdin);
-    CHOP(name);
-
-    printf("주소 :");
-    fgets(address, 80, stdin);
-    CHOP(address);
-
-    printf("전화 :");
-    fgets(tel, 12, stdin);
-    CHOP(tel);
-
-    // 받아온 데이터를 DB에 넣어준다.
-    sprintf(query, "insert into address values "
-                   "('%s', '%s', '%s')",
-                   name, address, tel);
-
-    // 명령이 잘 들어갔는지 확인한다.
-    query_stat = mysql_query(connection, query);
-    if (query_stat != 0)
-    {
-        fprintf(stderr, "Mysql query error : %s", mysql_error(&conn));
-        return 1;
-    }
-
-    // DB사용을 종료한다.
-    mysql_close(connection);
 }

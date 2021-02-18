@@ -2,6 +2,7 @@
     "files.associations": {
         "*.html": "html",
         "typeinfo": "c",
-        "opensocket.h": "c"
+        "opensocket.h": "c",
+        "string.h": "c"
     }
 }
