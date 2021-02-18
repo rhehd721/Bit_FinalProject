@@ -30,11 +30,6 @@ int main(MYSQL * (*connect))
     MYSQL_ROW   sql_row;
     int       query_stat; 
 
-    char name[12];
-    char address[80];
-    char tel[12];
-    char query[255];
-
     // sql에 query를 날린다.
     // 정상적으로 query가 보내졌다면 0을 return
     query_stat = mysql_query(connection, "select * from address");

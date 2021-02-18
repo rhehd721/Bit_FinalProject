@@ -8,7 +8,7 @@
 // DB정보 
 #define DB_HOST "127.0.0.1"
 #define DB_USER "test"
-#define DB_PASS "1005"
+#define DB_PASS "1234"
 #define DB_NAME "test"
 #define CHOP(x) x[strlen(x) - 1] = ' '
     
@@ -47,4 +47,6 @@ int main(void)
         fprintf(stderr, "Mysql connection error : %s", mysql_error(&conn));
         return 1;
     }
+    mysql_close(connection);
+
 }
