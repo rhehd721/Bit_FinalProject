@@ -4,21 +4,48 @@
 #define BUF_SIZE 100
 #define NAME_SIZE 20
 
+void SendType(int socket, char *Type, char *Name, char *Command);
 void SendCommand(int socket, char *name, char *message);
 int SendFile(int socket, int Type);
 
+// Type = imgae, txt, command
+// int socket = 소켓정보
+// char *Type = 서버에 보낼 파일의 형식
+// char *Name = 사용자 이름
+// int Btn = 실행시킨 명령의 종류
+void SendType(int socket, char *Type, char *Name, char *Command)
+{
+	int sock= socket;
+	char type_msg[NAME_SIZE+BUF_SIZE];
+	
+    sprintf(type_msg,"%s", Type);
+    write(sock, type_msg, strlen(type_msg));
+
+	if (Type == "image"){
+		SendFile(sock, 1);
+	}
+	else if (Type == "txt"){
+		SendFile(sock, 2);
+	}
+	else{
+		SendCommand(sock, Name, Command);
+	}
+
+}
 
 // 소켓정보와 이름과 메세지를 받아 Command를 보낸다.
 void SendCommand(int socket, char *name, char *message)   // send thread main
 {
-	fputs("SEND START\n", stderr);
 	int sock= socket;
 	char name_msg[NAME_SIZE+BUF_SIZE];
 	
-    sprintf(name_msg,"%s_%s", name, "1");
+	if (message == "Start"){
+		sprintf(name_msg,"%s_%s", name, "1");
+	}
+    else{
+		sprintf(name_msg,"%s_%s", name, "0");
+	}
     write(sock, name_msg, strlen(name_msg));
-
-	fputs("SEND END\n", stderr);
 }
 
 int SendFile(int socket, int Type){
