@@ -7,6 +7,31 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
+int Recv(){
+	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0){
+		if (msg == "Command"){
+			while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
+			break;
+		}
+		else if (msg == "Txt"){
+			while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
+			break;
+		}
+		else{
+			while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
+			break;
+		}
+	}
+		
+	return 0;
+}
+
+
+
+
+
+
+
 int RcvFlie(int socket)
 {
 	int clnt_sock;	// 클라이언트 소셋
