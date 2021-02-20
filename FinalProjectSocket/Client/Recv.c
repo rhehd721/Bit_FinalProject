@@ -12,18 +12,25 @@
 
 void RecvCommand(int socket)   // read thread main
 {
-    printf("RECV START");
+	fputs("RECV START\n", stderr);
 	char Command[NAME_SIZE+BUF_SIZE];
 	int str_len;
 	while(1)
 	{
 		str_len=read(socket, Command, NAME_SIZE+BUF_SIZE-1);
 		if(str_len != -1){
-            Command[str_len]=0;
-            fputs(Command, stdout);
+            if (Command == "image"){
+				break;
+			}
+			else if (Command == "txt"){
+				break;
+			}
+			else{
+				break;
+			}
             }
 	}
-    printf("RECV END");
+	fputs("RECV END\n", stderr);
 }
 
 
