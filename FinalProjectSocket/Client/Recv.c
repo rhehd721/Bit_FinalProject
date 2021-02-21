@@ -33,7 +33,6 @@ void RecvCommand(int socket)   // read thread main
 	fputs("RECV END\n", stderr);
 }
 
-
 // int Recv(int soket)
 // {
 // 	char buf[256];	// 받을 메세지
