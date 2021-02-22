@@ -1,5 +1,5 @@
-// Client
-// 완료
+// Camera
+// Camera와 Server를 연결해주는 코드
 
 #include <stdio.h>
 #include <stdlib.h>

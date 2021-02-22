@@ -1,5 +1,5 @@
-// Client
-// 완료
+// Camera CloseSocket
+// 카메라의 Socket을 닫아준다.
 
 #include <stdio.h>
 #include <stdlib.h>

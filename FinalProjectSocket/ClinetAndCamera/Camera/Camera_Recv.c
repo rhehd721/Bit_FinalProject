@@ -1,4 +1,5 @@
-/* server.c */
+// Camera Recv
+// 카메라의 경우 명령어만 받으므로 그에따라 작성한다.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,10 +21,15 @@ void RecvCommand(int socket)
 	{
 		str_len=read(socket, Command, NAME_SIZE+BUF_SIZE-1);
 		if(str_len != -1){
+			// Camera가 받는 명령어를 추가해준다.
 			if (Command == "Start"){
 				break;
 			}
 			else if (Command == "Stop"){
+				break;
+			}
+			// Thread를 빠져나오는 부분
+			else{
 				break;
 			}
 		}

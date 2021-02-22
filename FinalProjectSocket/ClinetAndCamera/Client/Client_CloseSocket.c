@@ -1,5 +1,5 @@
 // Client
-// 완료
+// Client의 Socket을 닫아준다.
 
 #include <stdio.h>
 #include <stdlib.h>
