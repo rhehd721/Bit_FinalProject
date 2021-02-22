@@ -6,9 +6,10 @@
 
 #define RETURN_NAME 30
 
-char * Load_NAME(MYSQL **connection, int Command, char *IDorRas_pi)
+char * Load_NAME(MYSQL *connection, int Command, char *IDorRas_pi)
 {
     MYSQL_ROW sql_row;
+    MYSQL_RES *sql_result;
     int query_stat; 
     char ReturnName[RETURN_NAME];
     
@@ -27,7 +28,7 @@ char * Load_NAME(MYSQL **connection, int Command, char *IDorRas_pi)
     if (query_stat != 0)
     {
         fprintf(stderr, "Mysql query error : %s", mysql_error(&conn));
-        return 1;
+        return -1;
     }
     
     // 쿼리로부터 받은 결과값을 mysql_store_result을 통해 받아온다
