@@ -3,6 +3,8 @@
 
 [Socket_이론](https://github.com/rhehd721/Bit_FinalProject/tree/main/Socket)
 
+[Project](https://github.com/rhehd721/Bit_FinalProject/tree/main/FinalProjectSocket)
+
 ## 개발환경 
 Linux_Ubuntu
 
