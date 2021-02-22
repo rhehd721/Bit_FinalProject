@@ -1,4 +1,5 @@
-// Server : GUI에게 명령을 받고 그것을 장치에게 보낸 후 장치에게 파일을 받고 받은 내용을 DB에 저장하고 정보를 다시 GUI에게 준다.
+// Server
+// Server의 Port를 열어주는 코드
 
 #include <stdio.h>
 #include <stdlib.h>

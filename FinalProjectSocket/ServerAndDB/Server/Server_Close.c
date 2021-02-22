@@ -9,8 +9,9 @@
 #include <netinet/in.h>
 #include <pthread.h>
 
-int Server_Close()
+int Server_Close(int Socket)
 {
+	int serv_sock = Socket;
 	close(serv_sock);
 	return 0;
 }

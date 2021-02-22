@@ -1,4 +1,5 @@
-/* server.c */
+// Server Recv
+// Server의 경우 Raspberry에게 보낼 Command와 DB에 저장할 Image, Txt파일을 받는다.
 
 #include <stdio.h>
 #include <stdlib.h>

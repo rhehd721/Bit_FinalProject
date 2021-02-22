@@ -1,5 +1,5 @@
-// Client
-// Clinet의 경우 TxtFile과 ImageFile을 받으므로 그에 맞게 코드를 작성한다.
+// Client Recv
+// Client의 경우 Image, Txt파일을 받는다.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,53 +8,71 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
-#define BUF_SIZE 100
-#define NAME_SIZE 20
+int Recv(int socket){
+	int serv_sock = socket;
+	char *msg = NULL;
+	int str_len = 0;
 
-void Recv(int socket)   // read thread main
-{
-	char Command[NAME_SIZE+BUF_SIZE];
-	int str_len;
-	while(1)
-	{
-		str_len=read(socket, Command, NAME_SIZE+BUF_SIZE-1);
-		if(str_len != -1){
-            if (Command == "image"){
-				break;
+	while((str_len=read(serv_sock, msg, sizeof(msg)))!=0){
+			if (msg == "Txt"){
+				while((str_len=read(serv_sock, msg, sizeof(msg)))!=0)
+				if (str_len != -1){
+					
+				}
 			}
-			else if (Command == "txt"){
-				break;
+			// image
+			else if (msg == "image"){
+				while((str_len=read(serv_sock, msg, sizeof(msg)))!=0)
+				if (str_len != -1){
+					
+				}
 			}
-			// Thread를 빠져나오는 부분
+			// Thread 탈출
 			else{
-				break;
+				printf("Recv 종료");
+				return -1;
 			}
-            }
 	}
+	return 0;
 }
 
-int RecvFile(int soket)
+int RcvFlie(int socket, int Type, char * FileName)
 {
+	int clnt_sock;	// 클라이언트 소셋
 	char buf[256];	// 받을 메세지
 
-	int byte1 = 0;
-    int byte2 = 0;
+	int nbyte = 256;
     size_t filesize = 0, bufsize = 0;
     FILE *file = NULL;
 
-	// 쓰기모드로 바이너리 파일 열기
-    file = fopen("aurora.jpg"/* 새로 만들 파일 이름 */, "wb");
-
-    bufsize = 256;
- 
-
-	while((byte1 = recv(soket, buf, bufsize, 0) != 0)){
- 		fwrite(buf, sizeof(char), byte1, file);
+	// Type : 0은 Txt, 1은 Image
+	if (Type == 0){
+		file = fopen(FileName, "wt");
 	}
+	else if (Type == 0){
+		file = fopen(FileName, "wb");
+	}
+	else{
+		printf("error");
+		return -1;
+	}
+    
+    bufsize = 256;
 
+    while(/*filesize != 0*/nbyte!=0) {
+ 		//if(filesize < 256) bufsize = filesize;
+        nbyte = recv(clnt_sock, buf, bufsize, 0);
+		// int recv(int s, void *buf, size_t len, int flags);
+		// int s	: 소켓 디스크립터
+		// void *buf	: 수신할 버퍼 포인터 데이터
+		// size_t len	: 버퍼의 바이트 단위 크기
+		// int flags	: 아래와 같은 옵션을 사용할 수 있습니다.
 
+        fwrite(buf, sizeof(char), nbyte, file);		
+        //nbyte = 0;
+    }
+ 
 	// 파일과 소켓을 닫아준다
 	fclose(file);
-
 	return 0;
 }
