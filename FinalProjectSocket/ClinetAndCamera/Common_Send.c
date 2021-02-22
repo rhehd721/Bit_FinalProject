@@ -37,7 +37,6 @@ void Send(int server_socket, char *name, char *Commands, int Order, char * FileN
 		SendFile(sock, Order, FileName);
 	}
     
-    
 }
 
 int SendFile(int server_socket, int Type, char *FileName){

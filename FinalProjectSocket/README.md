@@ -13,3 +13,8 @@
 
 ## Camera
 1. Server에게 받은 명령을 바탕으로 임무를 수행한다.
+
+## DB
+1. User_Table (ID, PASS, RaspberryNo)
+2. UserID_Inventory_Change_Table (Product_Name, Amount, ImagePath, Time)
+3. UserID_Inventory_Result_Table (Product_Name, Amount, ImagePath, Time)
