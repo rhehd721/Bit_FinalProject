@@ -66,6 +66,37 @@
 
 ## 저장 프로시저(Stored Procedure)
 일련의 SQL 명령문을 하나의 함수처럼 실행하기 위한 쿼리의 집합
+```sql
+CREATE PROC [프로시저명]
+AS
+[쿼리문]
+```
+Ex.
+```sql
+CREATE PROCEDURE UP_EXPRO
+(
+    @P_COMPANY NVARCHAR(500),--회사코드
+    @P_BIZAREA NVARCHAR(500),--고객사코드
+    @P_PLANT NVARCHAR(500) --공장코드
+)
+AS
+BEGIN
+SET NOCOUNT ON 
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+	
+    SELECT
+    A.CD_SHOP,
+    A.BIZAREA,
+    B.NM_BIZAREA,
+    FROM SA_Z_DZ_POS_SHOP_WJT A
+    LEFT OUTER JOIN BIZAREA B ON A.COMPANY = B.COMPANY AND A.BIZAREA = B.BIZAREA
+    WHERE A.CD_COMPANY = @P_CD_COMPANY AND(
+    ISNULL(@P_CD_BIZAREA,'')='' OR @P_CD_BIZAREA = A.CD_BIZAREA)
+
+SET NOCOUNT OFF
+RETURN
+END;
+```
 
 ## 트리거(Trigger)
 INSERT, DELETE, UPDATE 같은 DML 문 수행시 DB에서 자동으로 실행되도록 작성된 프로그램
@@ -73,11 +104,40 @@ INSERT, DELETE, UPDATE 같은 DML 문 수행시 DB에서 자동으로 실행되�
 ## 뷰(View)
 접근이 허용된 자료만을 제한적으로 보여주기 위해 기본 테이블로부터 유도된 가상의 테이블
 
+1. 독립성 : 테이블 구조가 변경되어도 뷰를 사용하는 응용 프로그램은 변경하지 않아도 된다.
+2. 편리성 : 복잡한 질의를 뷰로 생성함으로써 관련 질의를 단순하게 작성할 수 있다.
+3. 보안성 : 숨기고 싶은 정보가 존재하는 경우, 뷰를 생성할 때 해당 컬럼을 빼고 생성하여 정보를 숨길 수 있다.
+
 ## 인덱스(Index)
 Select의 속도는 빨라지나 Insert, Update 시에는 인덱스 수정이 발생하여 추가적인 I/O 발생
 
 ## ORDER BY(ASC, DESC)
 기본형태 : select * from table_name ORDER BY cloumn_name;
+
+## 서브쿼리(Subquery)
+하나의 SQL 문에 포함되어 있는 또 다른 SQL 문
+
+서브쿼리 사용시 주의사항
+1. 서브쿼리를 괄호로 감싸서 사용한다.
+2. 서브쿼리는 단일 행 또는 복수 행 비교 연산자와 함께 사용 가능하다.
+3. 서브쿼리에서는 ORDER BY 를 사용하지 못한다.
+
+서브쿼리가 사용 가능한 곳
+
+1. SELECT 절
+2. FROM 절
+3. WHERE 절
+4. HAVING 절
+5. ORDER BY 절
+6. INSERT 문의 VALUES 절
+7. UPDATE 문의 SET 절
+
+다중 행 비교 연산자(IN, ALL, ANY, SOME)
+
+1. IN : 서브쿼리의 결과에 존재하는 임의의 값과 동일한 조건을 의미한다.
+2. ALL : 서브쿼리의 결과에 존재하는 모든 값을 만족하는 조건을 의미한다.
+3. ANY : 서브쿼리의 결과에 존재하는 어느 하나의 값이라도 만족하는 조건을 의미한다.
+4. EXISTS : 서브쿼리의 결과를 만족하는 값이 존재하는지 여부를 확인하는 조건을 의미한다.
 
 ---
 
