@@ -12,6 +12,7 @@
 
 #define BUF_SIZE 100
 #define MAX_CLNT 256
+#define MAX_RASPBERRY 256
 
 void * handle_clnt(void * arg);
 void send_msg(char * msg, int len);
@@ -20,6 +21,15 @@ void error_handling(char * msg);
 // 서버에 접속한 클라이언트의 소켓 관리를 위한 변수와 배열
 int clnt_cnt=0;
 int clnt_socks[MAX_CLNT];
+// 서버에 접속한 클라이언트의 이름 리스트
+char ** clnt_NameList;
+
+// 서버에 접속한 라즈베리의 소켓 관리를 위한 변수와 배열
+int raspberry_cnt=0;
+int raspberry_socks[MAX_RASPBERRY];
+// 서버에 접속한 라즈베리의 이름 리스트
+char ** raspberry_NameList;
+
 pthread_mutex_t mutx;
 
 int Server_Open(int argc, char *argv[])

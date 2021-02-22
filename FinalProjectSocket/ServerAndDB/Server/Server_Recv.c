@@ -8,6 +8,9 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
+int Recv(int socket);
+int RcvFlie(int socket, int Type, char * FileName);
+
 int Recv(int socket){
 	int clnt_sock = socket;
 	char *msg = NULL;
@@ -28,15 +31,17 @@ int Recv(int socket){
 			else if (msg == "Txt"){
 				while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
 				if (str_len != -1){
-					
+					RcvFlie(socket, 0, "아직 못정함");
 				}
 			}
-			// image
-			else{
+			else if (msg == "Imgae"){
 				while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
 				if (str_len != -1){
-					
+					RcvFlie(socket, 1, "아직 못정함");
 				}
+			}
+			else{
+				return -1;
 			}
 		}
 	}
@@ -52,9 +57,15 @@ int RcvFlie(int socket, int Type, char * FileName)
     size_t filesize = 0, bufsize = 0;
     FILE *file = NULL;
 
-	// 쓰기모드로 바이너리 파일 열기
-	if (Type == )
-    file = fopen(FileName, "wb");
+	if (Type == 0){
+    	file = fopen(FileName, "wb");
+	}
+	else if (Type == 1){
+		file = fopen(FileName, "wt");
+	}
+	else{
+		return -1;
+	}
 
     bufsize = 256;
 

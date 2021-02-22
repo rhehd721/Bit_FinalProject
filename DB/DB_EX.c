@@ -21,10 +21,10 @@ int main(void)
     // MYSQL_FIELD	이 구조체는 각 필드의 정보를 가지고 있다. 여기에는 필드의 이름, 타입, 크기 등의 정보를 가지게 된다. mysql 에서 DESC 쿼리를 내렸을때의 정보를 가지고 있다고 보면된다.
     // MYSQL_FIELD_OFFSET	mysql 필드 리스트의 위치를 가진다.
 
-    MYSQL       *connection=NULL, conn;
-    MYSQL_RES   *sql_result;
-    MYSQL_ROW   sql_row;
-    int       query_stat; 
+    MYSQL *connection=NULL, conn;
+    MYSQL_RES *sql_result;
+    MYSQL_ROW sql_row;
+    int query_stat; 
 
     char name[12];
     char address[80];
