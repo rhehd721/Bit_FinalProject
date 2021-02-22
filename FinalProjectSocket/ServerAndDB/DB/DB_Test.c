@@ -1,4 +1,4 @@
-// DB와 연결시키는 코드
+// DB Test 코드
 
 #include "usr/include/mysql/mysql.h"
 #include <string.h>
