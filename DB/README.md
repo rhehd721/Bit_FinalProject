@@ -53,6 +53,32 @@
 1. 테이블 간의 관계를 정의하기 위해 기본키를 다른 테이블의 외래키로 복사하는 경우 외래키가 생성된다.
 2. 외래키 지정시 참조 무결성 제약 옵션을 선택할 수 있다.
 
+## 정규화(Normalization)
+자료의 저장공간(중복)과 자료 뷸일치를 최소하하여 자교 구조를 안정화 시킴
+1. 제1 정규형(First Normal Form : 1NF) : 정규형 과정을 통해 원자값이 아닌 도메인을 분해하여 어떤 릴레이션 R에 속한 모든 도메인이 원자값으로만 되어 있도록 설계
+2. 제2 정규형(Second Normal Form : 2NF) : 어떤 릴레이션 R이 제1정규화에 속하고 기본키에 속하지 않는 모든 속성이 키본키에 완전 함수적 종속이면 충족하는 정규화
+3. 제3 정규형(Third Normal Form : 3NF) : 어떤 릴레이션 R이 제2정규화에 있으며 기본키에 속하지 않는 모든 속성이 기본키에 이행적 함수 종속이 아닌 상태의 관계
+* 보이스 코드 정규형(Boyce-Codd Normal Form : BCNF) : 릴레이션 R의 모든 결정자가 후보키이면 릴레이션 R은 Boyce-Codd 정규형에 속하는 상태
+
+    * BCNF 정규형에 속하는 릴레이션은 모두 제3 정규형에 속하지만 역으로는 성립되지 않는다는 점도 기억해 두어야 할 중요한 포인트
+4. 제 4정규형(Four Normal Form : 4NF) : 릴레이션 R에 다중치 종속(Multi Value Dependency : MVD) A ->>B가 존재할 때 R의 모든 속성도 A에 함수 종속이면 릴레이션 R은 제4 정규형에 속합니다.
+5. 제5 정규형(Five Normal Form : 5NF) : 릴레이션 R에 존재하는 모든 조인 종속(JD)이 릴레이션 R의 후보키를 통해서만 성립된다면 릴레이션 R은 제5 정규형 또는 PJ/NF(Projection-Join Normal Form)에 속합니다.
+
+## 저장 프로시저(Stored Procedure)
+일련의 SQL 명령문을 하나의 함수처럼 실행하기 위한 쿼리의 집합
+
+## 트리거(Trigger)
+INSERT, DELETE, UPDATE 같은 DML 문 수행시 DB에서 자동으로 실행되도록 작성된 프로그램
+
+## 뷰(View)
+접근이 허용된 자료만을 제한적으로 보여주기 위해 기본 테이블로부터 유도된 가상의 테이블
+
+## 인덱스(Index)
+Select의 속도는 빨라지나 Insert, Update 시에는 인덱스 수정이 발생하여 추가적인 I/O 발생
+
+## ORDER BY(ASC, DESC)
+기본형태 : select * from table_name ORDER BY cloumn_name;
+
 ---
 
 ## Mysql
