@@ -61,7 +61,7 @@
 * 보이스 코드 정규형(Boyce-Codd Normal Form : BCNF) : 릴레이션 R의 모든 결정자가 후보키이면 릴레이션 R은 Boyce-Codd 정규형에 속하는 상태
 
     * BCNF 정규형에 속하는 릴레이션은 모두 제3 정규형에 속하지만 역으로는 성립되지 않는다는 점도 기억해 두어야 할 중요한 포인트
-4. 제 4정규형(Four Normal Form : 4NF) : 릴레이션 R에 다중치 종속(Multi Value Dependency : MVD) A ->>B가 존재할 때 R의 모든 속성도 A에 함수 종속이면 릴레이션 R은 제4 정규형에 속합니다.
+4. 제4 정규형(Four Normal Form : 4NF) : 릴레이션 R에 다중치 종속(Multi Value Dependency : MVD) A ->>B가 존재할 때 R의 모든 속성도 A에 함수 종속이면 릴레이션 R은 제4 정규형에 속합니다.
 5. 제5 정규형(Five Normal Form : 5NF) : 릴레이션 R에 존재하는 모든 조인 종속(JD)이 릴레이션 R의 후보키를 통해서만 성립된다면 릴레이션 R은 제5 정규형 또는 PJ/NF(Projection-Join Normal Form)에 속합니다.
 
 ## 저장 프로시저(Stored Procedure)
