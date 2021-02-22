@@ -6,8 +6,6 @@ void error_handling(char * msg);
 // IP와 PORT 받아와서 소켓 열기
 int OpenSocket(char * I,char * po)
 {
-	fputs("OPEN START\n", stderr);
-
 	int sock;
 	struct sockaddr_in serv_addr;
 	
@@ -23,8 +21,6 @@ int OpenSocket(char * I,char * po)
 	if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1){
 		error_handling("connect() error");
 	}
-
-	fputs("OPEN END\n", stderr);
 	
 	return sock;
 }

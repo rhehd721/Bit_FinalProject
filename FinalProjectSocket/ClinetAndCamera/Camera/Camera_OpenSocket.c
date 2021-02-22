@@ -11,8 +11,8 @@
 
 void error_handling(char * msg);
 
-// IP와 PORT 받아와서 소켓 열기
-int OpenSocket(char * I,char * po)
+// Server의 IP와 PORT 받아와서 소켓 열기
+int OpenSocket(char * I, char * po)
 {
 	int sock;
 	struct sockaddr_in serv_addr;
@@ -29,8 +29,6 @@ int OpenSocket(char * I,char * po)
 	if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1){
 		error_handling("connect() error");
 	}
-
-	write(sock, "test", strlen("test"));
 	
 	return sock;
 }

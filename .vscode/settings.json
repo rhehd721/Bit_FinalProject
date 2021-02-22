@@ -3,6 +3,7 @@
         "*.html": "html",
         "typeinfo": "c",
         "opensocket.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "system_error": "c"
     }
 }

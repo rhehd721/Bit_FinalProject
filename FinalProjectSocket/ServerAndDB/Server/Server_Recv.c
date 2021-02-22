@@ -7,32 +7,42 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
-int Recv(){
+int Recv(int socket){
+	int clnt_sock = socket;
+	char *msg = NULL;
+	int str_len = 0;
+
 	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0){
-		if (msg == "Command"){
-			while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
-			break;
-		}
-		else if (msg == "Txt"){
-			while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
-			break;
-		}
-		else{
-			while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
-			break;
+		if (str_len != -1){
+			// 여기서 msg를 통해서 User의 정보를 확인한다
+			///////////////
+			///////////////
+			if (msg == "Command"){
+				// Command를 받는 경우는 Raspberry에게 명령 전달
+				while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
+				if (str_len != -1){
+					
+				}
+			}
+			else if (msg == "Txt"){
+				while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
+				if (str_len != -1){
+					
+				}
+			}
+			// image
+			else{
+				while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
+				if (str_len != -1){
+					
+				}
+			}
 		}
 	}
-		
 	return 0;
 }
 
-
-
-
-
-
-
-int RcvFlie(int socket)
+int RcvFlie(int socket, int Type, char * FileName)
 {
 	int clnt_sock;	// 클라이언트 소셋
 	char buf[256];	// 받을 메세지
@@ -42,7 +52,8 @@ int RcvFlie(int socket)
     FILE *file = NULL;
 
 	// 쓰기모드로 바이너리 파일 열기
-    file = fopen("dog.jpg"/* 새로 만들 파일 이름 */, "wb");
+	if (Type == )
+    file = fopen(FileName, "wb");
 
     bufsize = 256;
 

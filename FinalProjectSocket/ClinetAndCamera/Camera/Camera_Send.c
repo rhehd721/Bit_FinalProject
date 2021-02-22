@@ -13,27 +13,36 @@
 #define BUF_SIZE 100
 #define NAME_SIZE 20
 
-void SendCommand(int socket, char *name, char *message);
-int SendFile(int socket, int Type);
+void Send(int server_socket, char *name, char *Commands, int Order, char * FileName);
+int SendFile(int server_socket, int Type, char *FileName);
 
 
 // 소켓정보와 이름과 메세지를 받아 Command를 보낸다.
-void SendCommand(int socket, char *name, char *message)   // send thread main
+// Order 0. 라즈베리정보, 1. Command, 2. Txt파일, 3. image파일 
+void Send(int server_socket, char *name, char *Commands, int Order, char * FileName)
 {
-    printf("SEND START");
-	int sock= socket;
-	char name_msg[NAME_SIZE+BUF_SIZE];
+	int sock= server_socket;
+	char Raspberry_Information[NAME_SIZE];
+	char Command[BUF_SIZE];
 	
-    sprintf(name_msg,"%s_%s", name, "1");
-    write(sock, name_msg, strlen(name_msg));
-
-    printf("SEND END");
-
+	if (Order == 0){
+		sprintf(Raspberry_Information,"%s", name);
+		write(sock, Raspberry_Information, strlen(Raspberry_Information));
+	}
+	else if (Order == 1){
+		sprintf(Command,"%s", Commands);
+		write(sock, Command, strlen(Command));
+	}
+	else{
+		SendFile(sock, Order, FileName);
+	}
+    
+    
 }
 
-int SendFile(int socket, int Type){
+int SendFile(int server_socket, int Type, char *FileName){
     // 소켓의 정보를 받아온다.
-    int sock= socket;
+    int sock= server_socket;
 
     FILE* file = NULL;
     char buf[BUFSIZ];
@@ -41,13 +50,16 @@ int SendFile(int socket, int Type){
     size_t fsize, nsize = 0;
     
     /* 전송할 파일 이름을 작성합니다 */
-    // Image 경우 1, Txt경우 0
-    if (Type == 1){
-	    file = fopen("dog.jpg" /* 파일이름 */, "rb");
+    // Txt경우 1, Image는 나머지 경우
+    if (Type == 2){
+		file = fopen(FileName, "rt");
+	}
+	else if (Type == 3){
+		file = fopen(FileName, "rb");
 	}
     else{
-        file = fopen("dog.txt" /* 파일이름 */, "rt");
-    }
+        printf("error");
+	}
 	
     /* 파일 크기 계산 */
     // move file pointer to end
