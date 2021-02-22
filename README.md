@@ -1,7 +1,7 @@
 # Bit_FinalProject
-[DB](https://github.com/rhehd721/Bit_FinalProject/tree/main/DB)
+[DB_이론](https://github.com/rhehd721/Bit_FinalProject/tree/main/DB)
 
-[Socket](https://github.com/rhehd721/Bit_FinalProject/tree/main/Socket)
+[Socket_이론](https://github.com/rhehd721/Bit_FinalProject/tree/main/Socket)
 
 ## 개발환경 
 Linux_Ubuntu
