@@ -8,12 +8,50 @@
 3. Unique (ex. 전화번호)
 4. Foreign Key (DB에 저장되어있는 Data)
 
-<img src="./img/constrain.png" width="40%" height="30%" title="제약어" ></img>
+## SQL Language
 
-[MariaDB](youtube.com/watch?v=vgIc4ctNFbc&t=2090s)
+### DML(Data Manipulation Language)
+1. SELECT
+2. INSERT
+3. UPDATE
+4. DELETE
 
-<img src="./img/Query.png" width="40%" height="30%" title="기본쿼리" ></img>
-<img src="./img/Query2.png" width="40%" height="30%" title="기본쿼리" ></img>
+### DDL(Data Definition Language)
+1. CREATE
+2. ALTER
+3. DROP
+4. RENAME
+5. TRUNCATE
+
+### DCL(Data Control Language)
+1. GRANT
+2. REVOKE
+
+### TCL(Transaction Control Language)
+1. COMMIT
+2. ROLLBACK
+3. SAVEPOINT
+
+## 제약 조건
+
+### PK(PRIMARY KEY) - 기본키
+1. 태이블에 저장된 행 데이터를 고유하게 식별하기 위한 기본키 정의
+2. 하나의 테이블에 하나의 기본키 제약만 정의할 수 있다.
+3. 기본키 제약을 정의하면 DBMS는 자동으로 UNIQUE 인덱스를 생성하며, 기본키를 구성하는 컬럼에는 NULL을 입력할 수 없다.
+4. PRIMARY KEY = UNIQUE KEY & NOT NULL
+
+### UK(UNIQUE KEY) - 고유키
+1. 테이블에 저장된 행 데이터를 고유하게 식별하기 위한 고유키를 정의한다. (NULL 입력 가능)
+
+### NOT NULL
+1. NULL 값의 입력을 금지한다
+
+### CHECK
+1. 입력할 수 있는 값의 범위 등을 제한한다. (CHECK 제약으로는 TRUE or FALSE로 정의)
+
+### FOREIGN KEY
+1. 테이블 간의 관계를 정의하기 위해 기본키를 다른 테이블의 외래키로 복사하는 경우 외래키가 생성된다.
+2. 외래키 지정시 참조 무결성 제약 옵션을 선택할 수 있다.
 
 ---
 
