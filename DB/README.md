@@ -16,12 +16,68 @@
 3. UPDATE
 4. DELETE
 
+INSERT 기본 문법
+```sql
+INSERT INTO 테이블명 (COLUMN_LIST)
+VALUES (COLUMN_LIST에 넣을 VALUE_LIST);
+```
+INSERT_Ex.
+```sql
+INSERT INTO PLAYER (PLAYER_ID, PLAYER_NAME, TEAM_ID, POSITION, HEIGHT, WEIGHT, BACK_NO)
+VALUES ('2002007', ' 박지성', 'K07', 'MF' ,178, 73, 7);
+```
+UPDATE 기본 문법
+```sql
+UPDATE 테이블명
+SET 수정되어야 할 컬럼명 = 수정되기를 원하는 새로운 값;
+```
+UPDATE_Ex.
+```sql
+UPDATE PLAYER
+SET BACK_NO = 99;
+```
+```sql
+UPDATE PLAYER
+SET BACK_NO = 99
+WHERE PLAYER_NAME = '박지성';
+```
+
 ### DDL(Data Definition Language)
 1. CREATE
 2. ALTER
 3. DROP
 4. RENAME
 5. TRUNCATE
+
+CREATE 기본 문법
+```sql
+CREATE TABLE 테이블 이름 (
+        컬럼명1 DATATYPE [DEFAULT 형식],
+        컬럼명2 DATATYPE [DEFAULT 형식],
+        컬럼명3 DATATYPE [DEFAULT 형식]
+);
+```
+CREATE_Ex.
+```sql
+CREATE TABLE PLAYER (
+       PLAYER_ID                CHAR(7)             NOT NULL,
+       PLAYER_NAME        VARCHAR2(20)  NOT NULL,
+       TEAM_ID                   CHAR(3)             NOT NULL,
+       E_PLAYER_NAME   VARCHAR2(40),
+    
+      CONSTRAINT PLAYER_PK PRIMARY KEY (PLAYER_ID),
+      CONSTRAINT PLAYER_FK FOREIGN KEY (TEAM_ID) REFERENCES TEAM(TEAM_ID)
+    
+);
+```
+DROP 기본 문법
+```sql
+DROP TABLE 테이블명 [CASCADE CONSTRAINT];
+```
+RENAME 기본 문법
+```sql
+RENAME 변경전 테이블명 TO 변경후 테이블명
+```
 
 ### DCL(Data Control Language)
 1. GRANT
