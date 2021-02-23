@@ -12,16 +12,21 @@ char * Load_NAME(MYSQL *connection, int Command, char *IDorRas_pi)
 {
     MYSQL_ROW sql_row;
     MYSQL_RES *sql_result;
-    int query_stat; 
+    int query_stat;
+    char query[255] = NULL;
     char ReturnName[RETURN_NAME];
     
     // sql에 query를 날린다.
     // 정상적으로 query가 보내졌다면 0을 return
     if (Command == 0){
-        query_stat = mysql_query(connection, "select RaspberryNo from User_Table where <ID = ????>");
+        sprintf(query, "select RaspberryNo from User_Table where %s",
+                   IDorRas_pi);
+        query_stat = mysql_query(connection, query);
     }
     else if (Command == 1){
-        query_stat = mysql_query(connection, "select ID from User_Table where <RaspberryNo = ????>");
+        sprintf(query, "select ID from User_Table where %s",
+                   IDorRas_pi);
+        query_stat = mysql_query(connection, query);
     }
     else{
         return -1;
@@ -29,7 +34,6 @@ char * Load_NAME(MYSQL *connection, int Command, char *IDorRas_pi)
     
     if (query_stat != 0)
     {
-        fprintf(stderr, "Mysql query error : %s", mysql_error(&conn));
         return -1;
     }
     
@@ -54,13 +58,15 @@ char * Load_PASS(MYSQL *connection, char *ID)
     MYSQL_RES *sql_result;
     int query_stat; 
     char ReturnPass[RETURN_PASS];
+    char query[255] = NULL;
     
     // PASS를 받아오는 쿼리
-    query_stat = mysql_query(connection, "select PASS from User_Table where <ID = ????>");
+    sprintf(query, "select PASS from User_Table where %s",
+                   ID);
+    query_stat = mysql_query(connection, query);
     
     if (query_stat != 0)
     {
-        fprintf(stderr, "Mysql query error : %s", mysql_error(&conn));
         return -1;
     }
     
