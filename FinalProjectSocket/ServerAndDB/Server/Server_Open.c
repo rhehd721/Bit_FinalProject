@@ -9,6 +9,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <pthread.h>
+#include "./Server_AppendUser.h"
 
 #define BUF_SIZE 100
 #define MAX_CLNT 256
@@ -22,13 +23,13 @@ void error_handling(char * msg);
 int clnt_cnt=0;
 int clnt_socks[MAX_CLNT];
 // 서버에 접속한 클라이언트의 이름 리스트
-char clnt_NameList[MAX_CLNT][15];
+char * (clnt_NameList[16])[MAX_CLNT];
 
 // 서버에 접속한 라즈베리의 소켓 관리를 위한 변수와 배열
 int raspberry_cnt=0;
 int raspberry_socks[MAX_RASPBERRY];
 // 서버에 접속한 라즈베리의 이름 리스트
-char raspberry_NameList[MAX_RASPBERRY][15];
+char * (raspberry_NameList[16])[MAX_RASPBERRY];
 
 pthread_mutex_t mutx;
 
@@ -55,18 +56,18 @@ int Server_Open(int argc, char *argv[])
 	
 	while(1)
 	{
-		char UnknownName[15];
+		char * UnknownName;
 
 		clnt_adr_sz=sizeof(clnt_adr);
 		clnt_sock=accept(serv_sock, (struct sockaddr*)&clnt_adr, &clnt_adr_sz);
 
-		// UnknownName = RecvName(int socket);
-		// if(UnknownName[0] == 'R'){
-		// 	raspberry_NameList[raspberry_cnt] = UnknownName;
-		// }
-		// else{
-		// 	clnt_NameList[clnt_cnt] = UnknownName;
-		// }
+		UnknownName = RecvName(clnt_sock);
+		if(UnknownName[0] == 'R'){
+			raspberry_NameList[raspberry_cnt] = UnknownName;
+		}
+		else{
+			sprintf(clnt_NameList[clnt_cnt], "%s", UnknownName);
+		}
 		
 		pthread_mutex_lock(&mutx);
 		// 새로운 연결이 형성될 때마다 변수 clnt_cnt와 배열 clnt_sock에 해당 정보를 등록한다.
