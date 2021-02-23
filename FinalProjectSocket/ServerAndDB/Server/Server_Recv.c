@@ -16,10 +16,13 @@ int Recv(int socket){
 	char *msg = NULL;
 	int str_len = 0;
 
+	// 1단계 : 보낸사람 확인
+	// 2단계 : 보낼 파일 확인
+	// 3단계 : 파일 or 커멘드 받기
 	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0){
 		if (str_len != -1){
 			// 여기서 msg를 통해서 User의 정보를 확인한다
-			///////////////
+			/////////////// DB_LoadData.Load_NAME() -> 이름정보 받아오기
 			///////////////
 			if (msg == "Command"){
 				// Command를 받는 경우는 Raspberry에게 명령 전달
@@ -86,4 +89,22 @@ int RcvFlie(int socket, int Type, char * FileName)
 	// 파일과 소켓을 닫아준다
 	fclose(file);
 	return 0;
+}
+
+char * RecvName(int socket){
+	int clnt_sock = socket;
+	char *msg = NULL;
+	int str_len = 0;
+	char *name = NULL;
+
+	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0){
+		if (str_len != -1){
+			name = (char*)malloc(strlen(msg)+1);
+			// 그냥 이름을 받아와서 리턴
+			// msg 길이 파악 + 1 NULL
+			sprintf(name, "%s", msg);
+			return name;
+		}
+	}
+	return NULL;
 }

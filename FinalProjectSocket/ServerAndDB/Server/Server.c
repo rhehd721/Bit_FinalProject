@@ -76,11 +76,13 @@ void * handle_clnt(void * arg)
 	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
 		send_msg(msg, str_len);
 	
+	// 위에 while문을 빠져나왔다면 연결이 없어진 것이니 소켓을 지워준다
 	pthread_mutex_lock(&mutx);
 	for(i=0; i<clnt_cnt; i++)   // remove disconnected client
 	{
 		if(clnt_sock==clnt_socks[i])
 		{
+			// 소켓을 지웠으므로 다시 리스트 정렬
 			while(i++<clnt_cnt-1)
 				clnt_socks[i]=clnt_socks[i+1];
 			break;

@@ -38,11 +38,6 @@ int Server_Open(int argc, char *argv[])
 	struct sockaddr_in serv_adr, clnt_adr;
 	int clnt_adr_sz;
 	pthread_t t_id;
-	// 파일을 실행시킬때 port번호를 주지않으면 실행시키지 말고 error 메세지를 출력해
-	if(argc!=2) {
-		printf("Usage : %s <port>\n", argv[0]);
-		exit(1);
-	}
   
 	pthread_mutex_init(&mutx, NULL);
 	// 서버는 IPv4(PF_INET) 프로토콜을 사용할거고 연결지향형(SOCK_STREAM) 소켓을 사용할거야
@@ -60,8 +55,18 @@ int Server_Open(int argc, char *argv[])
 	
 	while(1)
 	{
+		char UnknownName[15];
+
 		clnt_adr_sz=sizeof(clnt_adr);
-		clnt_sock=accept(serv_sock, (struct sockaddr*)&clnt_adr,&clnt_adr_sz);
+		clnt_sock=accept(serv_sock, (struct sockaddr*)&clnt_adr, &clnt_adr_sz);
+
+		// UnknownName = RecvName(int socket);
+		// if(UnknownName[0] == 'R'){
+		// 	raspberry_NameList[raspberry_cnt] = UnknownName;
+		// }
+		// else{
+		// 	clnt_NameList[clnt_cnt] = UnknownName;
+		// }
 		
 		pthread_mutex_lock(&mutx);
 		// 새로운 연결이 형성될 때마다 변수 clnt_cnt와 배열 clnt_sock에 해당 정보를 등록한다.
@@ -76,9 +81,4 @@ int Server_Open(int argc, char *argv[])
 	}
 	close(serv_sock);
 	return 0;
-}
-
-char * Malloc_Name(char * name){
-	
-
 }
