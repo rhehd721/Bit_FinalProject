@@ -22,13 +22,13 @@ void error_handling(char * msg);
 int clnt_cnt=0;
 int clnt_socks[MAX_CLNT];
 // 서버에 접속한 클라이언트의 이름 리스트
-char ** clnt_NameList;
+char clnt_NameList[MAX_CLNT][15];
 
 // 서버에 접속한 라즈베리의 소켓 관리를 위한 변수와 배열
 int raspberry_cnt=0;
 int raspberry_socks[MAX_RASPBERRY];
 // 서버에 접속한 라즈베리의 이름 리스트
-char ** raspberry_NameList;
+char raspberry_NameList[MAX_RASPBERRY][15];
 
 pthread_mutex_t mutx;
 
@@ -76,4 +76,9 @@ int Server_Open(int argc, char *argv[])
 	}
 	close(serv_sock);
 	return 0;
+}
+
+char * Malloc_Name(char * name){
+	
+
 }

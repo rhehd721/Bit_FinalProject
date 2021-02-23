@@ -20,7 +20,7 @@
 3. UserID_Inventory_Result_Table (Product_Name, Amount, ImagePath, Time)
 ```sql
 CREATE TABLE `User_Table` (
-    `ID` int(11) NOT NULL,
+    `ID` varchar(15) NOT NULL,
     `PASS` varchar(15) NOT NULL,
     `RaspberryNo` varchar(20) DEFAULT NULL,
     PRIMARY KEY (`ID`)
@@ -31,6 +31,6 @@ CREATE TABLE `UserID_Inventory_Change_Table` (
     `Product_Name` varchar(30) NOT NULL,
     `Amount` int(10) DEFAULT NULL,
     `ImagePath` varchar(60) DEFAULT NULL,
-    `Time` date(80) DEFAULT NULL,
+    `Time` date(30) DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
