@@ -1,5 +1,6 @@
 // Camera Recv
 // 카메라의 경우 명령어만 받으므로 그에따라 작성한다.
+// 완료
 
 #include <stdio.h>
 #include <stdlib.h>

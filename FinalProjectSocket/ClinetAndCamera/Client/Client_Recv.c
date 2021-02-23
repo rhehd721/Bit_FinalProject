@@ -1,5 +1,6 @@
 // Client Recv
 // Client의 경우 Image, Txt파일을 받는다.
+// 매번 새로운 FileName 생성 
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,25 +14,27 @@ int Recv(int socket){
 	char *msg = NULL;
 	int str_len = 0;
 
-	while((str_len=read(serv_sock, msg, sizeof(msg)))!=0){
-			if (msg == "Txt"){
-				while((str_len=read(serv_sock, msg, sizeof(msg)))!=0)
-				if (str_len != -1){
-					
+	while(1){
+		while((str_len=read(serv_sock, msg, sizeof(msg)))!=0){
+				if (msg == "Txt"){
+					while((str_len=read(serv_sock, msg, sizeof(msg)))!=0)
+					if (str_len != -1){
+						
+					}
 				}
-			}
-			// image
-			else if (msg == "image"){
-				while((str_len=read(serv_sock, msg, sizeof(msg)))!=0)
-				if (str_len != -1){
-					
+				// image
+				else if (msg == "image"){
+					while((str_len=read(serv_sock, msg, sizeof(msg)))!=0)
+					if (str_len != -1){
+						
+					}
 				}
-			}
-			// Thread 탈출
-			else{
-				printf("Recv 종료");
-				return -1;
-			}
+				// Thread 탈출
+				else{
+					printf("Recv 종료");
+					return -1;
+				}
+		}
 	}
 	return 0;
 }

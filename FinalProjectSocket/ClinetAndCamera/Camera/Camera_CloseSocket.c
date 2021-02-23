@@ -1,5 +1,6 @@
 // Camera CloseSocket
 // 카메라의 Socket을 닫아준다.
+// 완료
 
 #include <stdio.h>
 #include <stdlib.h>

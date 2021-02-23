@@ -1,4 +1,5 @@
-/* client.c */
+// Client and Raspberry Send
+// 완료
 
 #include <stdio.h>
 #include <stdlib.h>

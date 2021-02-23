@@ -4,6 +4,7 @@
         "typeinfo": "c",
         "opensocket.h": "c",
         "string.h": "c",
-        "system_error": "c"
+        "system_error": "c",
+        "stdlib.h": "c"
     }
 }

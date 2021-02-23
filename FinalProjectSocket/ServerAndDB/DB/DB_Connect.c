@@ -1,4 +1,5 @@
 // DB와 연결시키는 코드
+// 완료
 
 #include <mysql.h>
 #include <string.h>
@@ -8,18 +9,14 @@
 #define DB_HOST "127.0.0.1"
 #define DB_USER "root"
 #define DB_PASS "1234"
-#define DB_NAME "final"
-    
-int main(void)
+#define DB_NAME "FinalProject"
+
+// DB와 연결 후 return Connection 
+MYSQL *DB_Connect()
 {
 
-    // MYSQL	데이타 베이스에 연결했을때, 이 연결을 다루기 위해 사용되는 구조체 이다
-    // MYSQL_RES	(SELECT, SHOW, DESCRIBE, EXPLAIN)등의 쿼리를 내렸을때 그 결과를 다루기 위해 사용되는 구조체이다.
-    // MYSQL_ROW	이것은 데이타의 하나의 row 값을 가리킨다. 만약 row 값이 없다면 null 을 가르키게 된다.
-    // MYSQL_FIELD	이 구조체는 각 필드의 정보를 가지고 있다. 여기에는 필드의 이름, 타입, 크기 등의 정보를 가지게 된다. mysql 에서 DESC 쿼리를 내렸을때의 정보를 가지고 있다고 보면된다.
-    // MYSQL_FIELD_OFFSET	mysql 필드 리스트의 위치를 가진다.
-
-    MYSQL       *connection=NULL, conn;
+    // MYSQL	데이타 베이스에 연결했을때, 이 연결을 다루기 위해 사용되는 구조체 이다.
+    MYSQL *connection=NULL, conn;
     
     // mysql_init()함수는 MySQL 서버를 핸들링할 객체를 메모리에 할당하고 초기화 하는 역활을 합니다.
     mysql_init(&conn);
@@ -37,4 +34,6 @@ int main(void)
         fprintf(stderr, "Mysql connection error : %s", mysql_error(&conn));
         return 1;
     }
+
+    return connection;
 }

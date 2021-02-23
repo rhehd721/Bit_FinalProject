@@ -1,5 +1,6 @@
 // Client
 // Client의 Socket을 열어준다.
+// 완료
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +12,7 @@
 
 void error_handling(char * msg);
 
-// IP와 PORT 받아와서 소켓 열기
+// IP와 PORT 받아와서 소켓 열어 소켓 Return
 int OpenSocket(char * I,char * po)
 {
 	int sock;
