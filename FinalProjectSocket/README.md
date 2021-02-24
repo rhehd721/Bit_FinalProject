@@ -1,4 +1,7 @@
 # Final Project
+자동 재고파악 서비스
+
+<img src="./Image/ProjectConcept.png" width="60%" height="45%" title="ProjectConcept" ></img>
 
 ## Server
 1. Client에게 Name+Command를 받아온다.
