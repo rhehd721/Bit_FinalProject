@@ -9,24 +9,29 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
+int Recv(int socket);
+int RcvFlie(int socket, int Type, char * FileName);
+
 int Recv(int socket){
 	int serv_sock = socket;
 	char *msg = NULL;
 	int str_len = 0;
 
 	while(1){
+		// 일단 받을 파일이 어떤 파일인지 분류작업을 거친다.
 		while((str_len=read(serv_sock, msg, sizeof(msg)))!=0){
+				// 파일에 따라 Recv를 달리한다.
 				if (msg == "Txt"){
 					while((str_len=read(serv_sock, msg, sizeof(msg)))!=0)
 					if (str_len != -1){
-						
+						RcvFlie(serv_sock, 0, );
 					}
 				}
 				// image
 				else if (msg == "image"){
 					while((str_len=read(serv_sock, msg, sizeof(msg)))!=0)
 					if (str_len != -1){
-						
+						RcvFlie(serv_sock, 1, );
 					}
 				}
 				// Thread 탈출

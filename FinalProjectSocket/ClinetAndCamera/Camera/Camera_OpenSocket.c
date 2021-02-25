@@ -9,8 +9,7 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <pthread.h>
-
-void error_handling(char * msg);
+#include <time.h>
 
 // Server의 IP와 PORT 받아와서 소켓 열기
 int OpenSocket(char * I, char * po)
@@ -25,18 +24,17 @@ int OpenSocket(char * I, char * po)
 	serv_addr.sin_family=AF_INET;
 	serv_addr.sin_addr.s_addr=inet_addr(I);
 	serv_addr.sin_port=htons(atoi(po));
-	
-	// 소켓을 이용해 서버의 정보를 지닌 구조체를 가지고 접속 요청을 한다
-	if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1){
-		error_handling("connect() error");
+
+	while(1){
+		// 소켓을 이용해 서버의 정보를 지닌 구조체를 가지고 접속 요청을 한다
+		if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1){
+			sleep(30);
+		}
+		// 접속이 되었다면 탈출
+		else{
+			break;
+		}
 	}
 	
 	return sock;
-}
-
-void error_handling(char *msg)
-{
-	fputs(msg, stderr);
-	fputc('\n', stderr);
-	exit(1);
 }
