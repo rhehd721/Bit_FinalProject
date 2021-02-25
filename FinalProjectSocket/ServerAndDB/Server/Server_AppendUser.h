@@ -1,5 +1,9 @@
 // Server Recv
-// Server의 경우 Raspberry에게 보낼 Command와 DB에 저장할 Image, Txt파일을 받는다.
+// Server에 접속한 라즈베리 또는 유저의 이름을 return해서
+// Server_Open에 존재하는 
+// char* clnt_NameList [MAX_CLNT];
+// char* raspberry_NameList [MAX_RASPBERRY];
+// arr에 이름을 추가해준다
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -10,6 +10,8 @@ char* Name(char * name){
 
     sprintf(Rname, "%s", name);
 
+    printf("dududdudud : %c", Rname[0]);
+
     return Rname;
 
 }
@@ -23,7 +25,7 @@ int main(){
 
     reslut[0] = Name("Hello");
 
-    printf("%s\n", reslut[0]);
+    // printf("%c\n", reslut[0][0]);
 
 
 
