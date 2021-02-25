@@ -4,6 +4,7 @@
 // char* clnt_NameList [MAX_CLNT];
 // char* raspberry_NameList [MAX_RASPBERRY];
 // arr에 이름을 추가해준다
+// 완료
 
 #include <stdio.h>
 #include <stdlib.h>

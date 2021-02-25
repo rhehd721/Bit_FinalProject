@@ -17,7 +17,6 @@
 
 void * handle_clnt(void * arg);
 void send_msg(char * msg, int len);
-void error_handling(char * msg);
 
 // 서버에 접속한 클라이언트와 라즈베리의 idx를 관리하는 변수
 int raspberry_cnt=0;
@@ -53,10 +52,10 @@ int Server_Open(char * IP, char * PORT)
 	
 	// bind와 listen을 통해 client받을준비 완료
 	if(bind(serv_sock, (struct sockaddr*) &serv_adr, sizeof(serv_adr))==-1)
-		error_handling("bind() error");
+		return 0;
 	if(listen(serv_sock, 5)==-1)
-		error_handling("listen() error");
-	
+		return 0;
+		
 	while(1)
 	{
 		char * UnknownName; // Client, Raspberry이름을 받을 변수
