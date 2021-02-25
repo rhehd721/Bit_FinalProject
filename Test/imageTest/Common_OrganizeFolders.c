@@ -5,9 +5,12 @@
 #include <string.h>
 // #include <error.h>
 
-int compare(const void *a , const void *b){
+int compare(const char *a , const char *b){
+    printf("sssss : %s  ssssssss", a);
 
-    return strcmp( (char*)a , (char*)b );
+    // return strcmp( (char*)a , (char*)b );
+
+    return 0;
 
 }
 
