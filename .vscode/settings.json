@@ -5,6 +5,7 @@
         "opensocket.h": "c",
         "string.h": "c",
         "system_error": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "functional": "c"
     }
 }

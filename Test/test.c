@@ -1,11 +1,32 @@
 # include <stdio.h>
+#include <stdlib.h>
 # include <string.h>
 
-int main(){
-    char* name = NULL;
-    name = "hello";
+char* Name(char * name){
 
-    printf("\n %u \n", strlen(name));
+    char* Rname = NULL;
+    
+    Rname = (char*)malloc(strlen(name)+1);
+
+    sprintf(Rname, "%s", name);
+
+    return Rname;
+
+}
+
+
+int main(){
+    
+    char *reslut[10];
+
+    printf("hello world \n");
+
+    reslut[0] = Name("Hello");
+
+    printf("%s\n", reslut[0]);
+
+
+
 
     return 0;
 }
