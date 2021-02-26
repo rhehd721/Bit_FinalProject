@@ -1,3 +1,6 @@
+// 폴더를 생성하는 코드
+// 완료
+
 #include <stdio.h>
 #include <direct.h>		//mkdir
 

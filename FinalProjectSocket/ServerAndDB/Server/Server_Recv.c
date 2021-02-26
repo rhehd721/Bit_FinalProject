@@ -43,6 +43,9 @@ int Recv(int socket){
 					RcvFlie(socket, 1, "아직 못정함");
 				}
 			}
+			else if (msg == "ChekName"){
+
+			}
 			else{
 				return -1;
 			}

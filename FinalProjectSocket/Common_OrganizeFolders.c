@@ -1,3 +1,5 @@
+// 폴더안에 파일들을 관리하는 코드
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
