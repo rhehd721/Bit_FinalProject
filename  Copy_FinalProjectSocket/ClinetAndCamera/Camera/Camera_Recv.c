@@ -29,6 +29,18 @@ void RecvCommand(int socket)
 			else if (Command == "Stop"){
 				break;
 			}
+			else if (Command == "Stop"){
+				break;
+			}
+			else if (Command == "Stop"){
+				break;
+			}
+			else if (Command == "Stop"){
+				break;
+			}
+			else if (Command == "Stop"){
+				break;
+			}
 			// Thread를 빠져나오는 부분
 			else{
 				break;

@@ -21,17 +21,15 @@ int Recv(int socket){
 	// 3단계 : 파일 or 커멘드 받기
 	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0){
 		if (str_len != -1){
-			// 여기서 msg를 통해서 User의 정보를 확인한다
-			/////////////// DB_LoadData.Load_NAME() -> 이름정보 받아오기
-			///////////////
-			if (msg == "Command"){
+			if (msg == "Command"){	// 해당 경우는 무조건 Client가 보낸 것
 				// Command를 받는 경우는 Raspberry에게 명령 전달
 				while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
 				if (str_len != -1){
 					
 				}
 			}
-			else if (msg == "Txt"){
+			// 아래의 두 경우는 Camera가 보낸 것
+			else if (msg == "Txt"){	
 				while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
 				if (str_len != -1){
 					RcvFlie(socket, 0, "아직 못정함");
@@ -43,10 +41,7 @@ int Recv(int socket){
 					RcvFlie(socket, 1, "아직 못정함");
 				}
 			}
-			else if (msg == "ChekName"){
-
-			}
-			else{
+			else{	// 예외처리
 				return -1;
 			}
 		}
@@ -92,22 +87,4 @@ int RcvFlie(int socket, int Type, char * FileName)
 	// 파일과 소켓을 닫아준다
 	fclose(file);
 	return 0;
-}
-
-char * RecvName(int socket){
-	int clnt_sock = socket;
-	char *msg = NULL;
-	int str_len = 0;
-	char *name = NULL;
-
-	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0){
-		if (str_len != -1){
-			name = (char*)malloc(strlen(msg)+1);
-			// 그냥 이름을 받아와서 리턴
-			// msg 길이 파악 + 1 NULL
-			sprintf(name, "%s", msg);
-			return name;
-		}
-	}
-	return NULL;
 }

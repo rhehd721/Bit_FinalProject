@@ -10,8 +10,6 @@
 #include <netinet/in.h>
 #include <pthread.h>
 // #include <mysql.h>
-#include "./Server_AppendUser.h"
-#include "./Login.h"
 #include "../DB/DB_Connect.h"
 
 #define BUF_SIZE 100
