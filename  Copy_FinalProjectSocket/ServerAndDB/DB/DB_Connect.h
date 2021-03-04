@@ -1,10 +1,6 @@
 // DB와 연결시키는 코드
 // 완료
 
-#include <mysql.h>
-#include <string.h>
-#include <stdio.h>
-
 // DB정보 
 #define DB_HOST "127.0.0.1"
 #define DB_USER "root"
@@ -32,7 +28,7 @@ MYSQL *DB_Connect()
     if (connection == NULL)
     {
         fprintf(stderr, "Mysql connection error : %s", mysql_error(&conn));
-        return 1;
+        return NULL;
     }
 
     return connection;

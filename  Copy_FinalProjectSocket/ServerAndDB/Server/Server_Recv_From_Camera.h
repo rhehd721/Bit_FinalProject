@@ -1,12 +1,5 @@
-// Server Recv
-// Server의 경우 Raspberry에게 보낼 Command와 DB에 저장할 Image, Txt파일을 받는다.
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
+// Server Recv From Camera
+// Image, Txt파일을 받는다.
 
 int Recv(int socket);
 int RcvFlie(int socket, int Type, char * FileName);
@@ -21,15 +14,7 @@ int Recv(int socket){
 	// 3단계 : 파일 or 커멘드 받기
 	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0){
 		if (str_len != -1){
-			if (msg == "Command"){	// 해당 경우는 무조건 Client가 보낸 것
-				// Command를 받는 경우는 Raspberry에게 명령 전달
-				while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
-				if (str_len != -1){
-					
-				}
-			}
-			// 아래의 두 경우는 Camera가 보낸 것
-			else if (msg == "Txt"){	
+			if (msg == "Txt"){	
 				while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
 				if (str_len != -1){
 					RcvFlie(socket, 0, "아직 못정함");

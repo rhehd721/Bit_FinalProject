@@ -9,14 +9,21 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <pthread.h>
+#include "/usr/include/mysql/mysql.h"
 // #include <mysql.h>
 #include "../DB/DB_Connect.h"
+#include "./Server_Recv_From_Camera.h"
 
 #define BUF_SIZE 100
 #define MAX_CLNT 2
 
+#define PORT "8080"
+
 void * handle_clnt(void * arg);
 void send_msg(char * msg, int len);
+
+int * Client = 0;
+int * Camera = 0;
 
 // 서버에 접속한 클라이언트와 라즈베리의 idx를 관리하는 변수
 int clnt_cnt=0;
@@ -28,7 +35,7 @@ pthread_mutex_t mutx;	// 쓰레드를 안정적으로 관리할 mutex
 
 // MYSQL *connection=NULL
 
-int Server_Open(char * PORT)
+int Server_Open()
 {
 	// server open에 이용될 변수들
 	int serv_sock, clnt_sock;
@@ -36,7 +43,7 @@ int Server_Open(char * PORT)
 	int clnt_adr_sz;
 	pthread_t t_id;
 
-	// MYSQL *connection=NULL	// 나중에 추가
+	MYSQL *connection=NULL	// 나중에 추가
   
 	pthread_mutex_init(&mutx, NULL);	// mutex 초기화
 	
@@ -67,6 +74,8 @@ int Server_Open(char * PORT)
 		pthread_mutex_lock(&mutx);
 
 		clnt_socks[clnt_cnt] = clnt_sock;
+		if (clnt_cnt == 0){Client = &clnt_sock;}
+		else{Camera = &clnt_sock;}
 		clnt_cnt++;
 
 		pthread_mutex_unlock(&mutx);
@@ -87,8 +96,17 @@ void * handle_clnt(void * arg)
 	int str_len=0, i;
 	char msg[BUF_SIZE];
 	
-	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
-		send_msg(msg, str_len);
+	if (clnt_sock == *Client){	// 클라이언트 (즉, 받은거 카메라에게)
+		while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
+		send_ToCamera(msg, str_len);
+	}
+	else if (clnt_sock == *Camera){	// 카메라 (즉, 받은거 클라이언트에게)
+		while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
+		send_ToClient(msg, str_len);
+	}
+	else{
+		return -1;
+	}
 	
 	// 위에 while문을 빠져나왔다면 연결이 없어진 것이니 소켓을 지워준다
 	pthread_mutex_lock(&mutx);
@@ -108,16 +126,21 @@ void * handle_clnt(void * arg)
 	return NULL;
 }
 // 연결된 모든 클라이언트에게 메세지를 전송하는 함수
-void send_msg(char * msg, int len)   // send to all
+void send_ToCamera(char * msg, int len)   // send to all
 {
-	int i;
-    printf("hello \n");
-    printf(" %s ", msg);
+	// printf("중간 테스트");
 	pthread_mutex_lock(&mutx);
-	for(i=0; i<clnt_cnt; i++)
-		write(clnt_socks[i], msg, len);
+	write(clnt_socks[1], msg, len);
 	pthread_mutex_unlock(&mutx);
 }
+
+void send_ToClient(char * msg, int len)   // send to all
+{
+	pthread_mutex_lock(&mutx);
+	write(clnt_socks[0], msg, len);
+	pthread_mutex_unlock(&mutx);
+}
+
 void error_handling(char * msg)
 {
 	fputs(msg, stderr);
