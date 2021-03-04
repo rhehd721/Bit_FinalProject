@@ -14,24 +14,24 @@
 #define BUF_SIZE 100
 #define NAME_SIZE 20
 
-void Send(int server_socket, char *name, char *Commands, int Order, char * FileName);
+void Send(int server_socket, int Order, char * FileName, int check);
 int SendFile(int server_socket, int Type, char *FileName);
 
 
 // 소켓정보와 이름과 메세지를 받아 Command를 보낸다.
 // Order 0. 라즈베리정보, 1. Command, 2. Txt파일, 3. image파일 
-void Send(int server_socket, char *name, char *Commands, int Order, char * FileName)
+void Send(int server_socket, int Order, char * FileName, int check)
 {
 	int sock= server_socket;
-	char Raspberry_Information[NAME_SIZE];
 	char Command[BUF_SIZE];
 	
-	if (Order == 0){
-		sprintf(Raspberry_Information,"%s", name);
-		write(sock, Raspberry_Information, strlen(Raspberry_Information));
-	}
-	else if (Order == 1){
-		sprintf(Command,"%s", Commands);
+	if (Order == 1){
+		if(check == 0){	// image
+			sprintf(Command,"%s", "Image");
+		}
+		else{	// Txt
+			sprintf(Command,"%s", "Txt");
+		}
 		write(sock, Command, strlen(Command));
 	}
 	else{

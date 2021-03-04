@@ -20,7 +20,8 @@
 #define PORT "8080"
 
 void * handle_clnt(void * arg);
-void send_msg(char * msg, int len);
+void send_ToCamera(char * msg, int len);
+void send_ToClient(char * msg, int len);
 
 int * Client = 0;
 int * Camera = 0;
@@ -43,7 +44,7 @@ int Server_Open()
 	int clnt_adr_sz;
 	pthread_t t_id;
 
-	MYSQL *connection=NULL	// 나중에 추가
+	MYSQL *connection=NULL;	// 나중에 추가
   
 	pthread_mutex_init(&mutx, NULL);	// mutex 초기화
 	
@@ -105,7 +106,7 @@ void * handle_clnt(void * arg)
 		send_ToClient(msg, str_len);
 	}
 	else{
-		return -1;
+		return NULL;
 	}
 	
 	// 위에 while문을 빠져나왔다면 연결이 없어진 것이니 소켓을 지워준다
@@ -128,7 +129,7 @@ void * handle_clnt(void * arg)
 // 연결된 모든 클라이언트에게 메세지를 전송하는 함수
 void send_ToCamera(char * msg, int len)   // send to all
 {
-	// printf("중간 테스트");
+	printf("%s", msg);
 	pthread_mutex_lock(&mutx);
 	write(clnt_socks[1], msg, len);
 	pthread_mutex_unlock(&mutx);

@@ -1,22 +1,10 @@
 #include<stdio.h>
-
-
-char * re (){
-    return "HELLO_WORLD";
-}
+#include<stdlib.h>
 
 int main(){
-    char name[100];
-    char * retur = re();
+    char mm[100];
 
-    for (int i =0; retur[i] != '_'; i++){
-        name[i] = retur[i];
-        printf("%s\n", retur);
-        printf("cccc : %c \n",retur[i] );
-    }
+    sprintf(mm, "%s", "Hello");
 
-    printf("%s\n", name);
-    // printf("%s\n", retur);
-
-    return 0;
+    printf("%s", mm);
 }
