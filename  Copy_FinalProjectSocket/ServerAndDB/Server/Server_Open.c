@@ -126,16 +126,15 @@ void * handle_clnt(void * arg)
 	close(clnt_sock);
 	return NULL;
 }
-// 연결된 모든 클라이언트에게 메세지를 전송하는 함수
-void send_ToCamera(char * msg, int len)   // send to all
+
+void send_ToCamera(char * msg, int len)	// 카메라에게 메세지 전달
 {
-	printf("%s", msg);
 	pthread_mutex_lock(&mutx);
 	write(clnt_socks[1], msg, len);
 	pthread_mutex_unlock(&mutx);
 }
 
-void send_ToClient(char * msg, int len)   // send to all
+void send_ToClient(char * msg, int len)   // 클라이언트에게 파일을 전송
 {
 	pthread_mutex_lock(&mutx);
 	write(clnt_socks[0], msg, len);

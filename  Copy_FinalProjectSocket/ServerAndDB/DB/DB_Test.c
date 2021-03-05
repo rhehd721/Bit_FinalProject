@@ -41,13 +41,13 @@ int main(void)
     }
     // sql에 query를 날린다.
     // 정상적으로 query가 보내졌다면 0을 return
-    query_stat = mysql_query(connection, "create table UserImformation(
-        id int)");
-    if (query_stat != 0)
-    {
-        fprintf(stderr, "Mysql query error : %s", mysql_error(&conn));
-        return 1;
-    }
+    // query_stat = mysql_query(connection, "create table UserImformation(
+    //     id int)");
+    // if (query_stat != 0)
+    // {
+    //     fprintf(stderr, "Mysql query error : %s", mysql_error(&conn));
+    //     return 1;
+    // }
     mysql_close(connection);
 
 }
