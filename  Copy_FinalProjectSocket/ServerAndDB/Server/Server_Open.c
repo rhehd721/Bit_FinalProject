@@ -1,5 +1,6 @@
 // Server
 // Server의 Port를 열어주는 코드
+// send_ToClient 부분 수정
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,7 +22,7 @@
 
 void * handle_clnt(void * arg);
 void send_ToCamera(char * msg, int len);
-void send_ToClient(char * msg, int len);
+void send_ToClient(char * msg, int socket);
 
 int * Client = 0;
 int * Camera = 0;
@@ -136,12 +137,14 @@ void send_ToCamera(char * msg, int len)	// 카메라에게 메세지 전달
 
 void send_ToClient(char * msg, int socket)   // 클라이언트에게 파일을 전송
 {
+	int str_len = 0;
+
 	pthread_mutex_lock(&mutx);
 	if (msg == 1){	// 받은 파일이 Txt라면
-
+		while((str_len=read(socket, msg, sizeof(msg)))!=0)
 	}
 	else if (msg == 2){	// 받은 파일이 Image라면
-
+		while((str_len=read(socket, msg, sizeof(msg)))!=0)
 	}
 	else{	// 예외처리
 
