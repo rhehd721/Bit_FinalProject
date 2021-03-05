@@ -39,6 +39,9 @@ int main(void)
         fprintf(stderr, "Mysql connection error : %s", mysql_error(&conn));
         return 1;
     }
+    else{
+        printf("성공");
+    }
     // sql에 query를 날린다.
     // 정상적으로 query가 보내졌다면 0을 return
     // query_stat = mysql_query(connection, "create table UserImformation(

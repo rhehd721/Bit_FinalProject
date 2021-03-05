@@ -103,7 +103,7 @@ void * handle_clnt(void * arg)
 	}
 	else if (clnt_sock == *Camera){	// 카메라 (즉, 받은거 클라이언트에게)
 		while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
-		send_ToClient(msg, str_len);
+		send_ToClient(msg, clnt_sock);
 	}
 	else{
 		return NULL;
@@ -134,10 +134,18 @@ void send_ToCamera(char * msg, int len)	// 카메라에게 메세지 전달
 	pthread_mutex_unlock(&mutx);
 }
 
-void send_ToClient(char * msg, int len)   // 클라이언트에게 파일을 전송
+void send_ToClient(char * msg, int socket)   // 클라이언트에게 파일을 전송
 {
 	pthread_mutex_lock(&mutx);
-	write(clnt_socks[0], msg, len);
+	if (msg == 1){	// 받은 파일이 Txt라면
+
+	}
+	else if (msg == 2){	// 받은 파일이 Image라면
+
+	}
+	else{	// 예외처리
+
+	}
 	pthread_mutex_unlock(&mutx);
 }
 
