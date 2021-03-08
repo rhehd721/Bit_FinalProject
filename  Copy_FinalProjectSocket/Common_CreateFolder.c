@@ -6,7 +6,7 @@
 
 int main()
 {
-	char SaveTxtPath[] = { "/usr/Desktop/SaveTxt" };
+	char SaveTxtPath[] = { "/usr/Desktop/SaveJson" };
 	char SaveImagePath[] = { "/usr/Desktop/SaveImage" };
 	
 	int TxtResult = mkdir( SaveTxtPath );
