@@ -8,7 +8,7 @@
 
 int main(){
     char ** list = R();
-    printf("%s", *(list + 2));
-    free(*list + 2);
+    printf("%s", *(list + 3));
+    // free....
 }
 

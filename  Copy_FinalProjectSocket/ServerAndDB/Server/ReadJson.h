@@ -124,7 +124,7 @@ char ** R()
 {
     int size;    // 문서 크기
 
-    char * JasonList[3];
+    char * JasonList[4];
     
     // 파일에서 JSON 문서를 읽음, 문서 크기를 구함
     char *doc = readFile("hello.json", &size);
@@ -137,7 +137,7 @@ char ** R()
 
     int idx = 0;
 
-    for (int i = 1; i < 7; i+=2){
+    for (int i = 1; i <= 7; i+=2){
         char * token = (char*)malloc(sizeof(json.tokens[i].string) + 1);
         sprintf(token, "%s", json.tokens[i].string);
         JasonList[idx++] = token;
