@@ -23,6 +23,7 @@
 void * handle_clnt(void * arg);
 void send_ToCamera(char * msg, int len);
 void send_ToClient(char * msg, int socket);
+int RcvFlie(int socket, int Type, char * FileName);
 
 int * Client = 0;
 int * Camera = 0;
@@ -66,9 +67,7 @@ int Server_Open()
 	// Server를 열었으니 DB또한 연결
 	connection = DB_Connect();
 
-	while(1)
-	{
-
+	while(1){
 		// 접속을 요청한 Client, Rasberry 접속 허용 및 소켓 지정
 		clnt_adr_sz = sizeof(clnt_adr);
 		clnt_sock = accept(serv_sock, (struct sockaddr*)&clnt_adr, &clnt_adr_sz);
@@ -139,12 +138,20 @@ void send_ToClient(char * msg, int socket)   // 클라이언트에게 파일을 
 {
 	int str_len = 0;
 
+	// 파일을 받고 DB에 저장하고 Client에게 보내기
 	pthread_mutex_lock(&mutx);
 	if (msg == 1){	// 받은 파일이 Txt라면
-		while((str_len=read(socket, msg, sizeof(msg)))!=0)
+		RcvFlie(socket, 1, char * FileName);
+		// Recv Txt
+		// Txt 읽기
+		// Txt 내용 DB 저장
+		// Txt Client 보내기
 	}
 	else if (msg == 2){	// 받은 파일이 Image라면
-		while((str_len=read(socket, msg, sizeof(msg)))!=0)
+		RcvFlie(socket, 0, char * FileName);
+		// Recv Image
+		// Image 경로 DB 저장
+		// Txt Client 보내기
 	}
 	else{	// 예외처리
 
@@ -157,4 +164,44 @@ void error_handling(char * msg)
 	fputs(msg, stderr);
 	fputc('\n', stderr);
 	exit(1);
+}
+
+int RcvFlie(int socket, int Type, char * FileName)
+{
+	int clnt_sock;	// 클라이언트 소셋
+	char buf[256];	// 받을 메세지
+
+	int nbyte = 256;
+    size_t filesize = 0, bufsize = 0;
+    FILE *file = NULL;
+
+	if (Type == 0){
+    	file = fopen(FileName, "wb");
+	}
+	else if (Type == 1){
+		file = fopen(FileName, "wt");
+	}
+	else{
+		return -1;
+	}
+
+    bufsize = 256;
+
+    while(/*filesize != 0*/nbyte!=0) {
+ 		//if(filesize < 256) bufsize = filesize;
+        nbyte = recv(clnt_sock, buf, bufsize, 0);
+		// int recv(int s, void *buf, size_t len, int flags);
+		// int s	: 소켓 디스크립터
+		// void *buf	: 수신할 버퍼 포인터 데이터
+		// size_t len	: 버퍼의 바이트 단위 크기
+		// int flags	: 아래와 같은 옵션을 사용할 수 있습니다.
+
+        fwrite(buf, sizeof(char), nbyte, file);		
+        //nbyte = 0;
+    }
+ 
+
+	// 파일과 소켓을 닫아준다
+	fclose(file);
+	return 0;
 }

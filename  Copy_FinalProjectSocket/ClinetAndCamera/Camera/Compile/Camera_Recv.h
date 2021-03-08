@@ -16,6 +16,7 @@ void RecvCommand(int sock)
 	{
 		str_len=read(socket, Command, NAME_SIZE+BUF_SIZE-1);
 		if(str_len != -1){
+			printf("%s", Command)
 			// Camera가 받는 명령어를 추가해준다.
 			if (Command == "1"){
 				printf("Start");
