@@ -142,16 +142,19 @@ void send_ToClient(char * msg, int socket)   // 클라이언트에게 파일을 
 	pthread_mutex_lock(&mutx);
 	if (msg[0] == '1'){	// 받은 파일이 Txt라면
 		fputs("Json 파일을 받겠습니다. \n", stderr);
-		RcvFlie(socket, 1, char * FileName);	// /home/mango/Desktop/SaveJson
+		// RcvFlie(socket, 1, char * FileName);	// /home/mango/Desktop/SaveJson
+		RcvFlie(socket, 1, "./Recv.json");	// /home/mango/Desktop/SaveJson
+
 		// Recv Txt
 		// Txt 읽기
 		// Txt 내용 DB 저장
 		// Txt Client 보내기
 	}
-	else if (msg == "2"){	// 받은 파일이 Image라면
+	else if (msg[0] == '2'){	// 받은 파일이 Image라면
 		fputs("Image 파일을 받겠습니다. \n", stderr);
 		// RcvFlie(socket, 0, char * FileName);	// /home/mango/Desktop/SaveImage
 		RcvFlie(socket, 0, "./dogRecv.jpg");	// /home/mango/Desktop/SaveImage
+
 		// Recv Image
 		// Image 경로 DB 저장
 		// Txt Client 보내기
@@ -171,7 +174,7 @@ void error_handling(char * msg)
 
 int RcvFlie(int socket, int Type, char * FileName)
 {
-	int clnt_sock;	// 클라이언트 소셋
+	int clnt_sock = socket;	// 클라이언트 소셋
 	char buf[256];	// 받을 메세지
 
 	int nbyte = 256;
