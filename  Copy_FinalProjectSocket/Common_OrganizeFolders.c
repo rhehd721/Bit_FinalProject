@@ -16,12 +16,19 @@ int main()
     if (dir != NULL) {
   
     /* print all the files and directories within directory */
-    while ((ent = readdir (dir)) != NULL) {
+    while ((ent = readdir (dir)) != NULL) {        
 		maxFile[index++] = ent->d_name;
         printf ("%s\n", ent->d_name);
     }
 	printf(" 총 파일의 갯수 : %d \n", index - 1);
     closedir (dir);
+
+    printf("\n\n");
+
+    for (int i = 0; i < index; i++){
+
+    }
+
     } else {
          /* could not open directory */
          perror ("");

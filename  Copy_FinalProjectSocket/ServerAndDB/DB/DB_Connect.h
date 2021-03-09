@@ -30,6 +30,9 @@ MYSQL *DB_Connect()
         fprintf(stderr, "Mysql connection error : %s", mysql_error(&conn));
         return NULL;
     }
+    else{
+        fputs("DB Connect! \n", stderr);
+    }
 
     return connection;
 }

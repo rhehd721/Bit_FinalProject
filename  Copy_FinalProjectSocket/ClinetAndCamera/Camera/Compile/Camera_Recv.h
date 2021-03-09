@@ -4,6 +4,8 @@
 #define BUF_SIZE 100
 #define NAME_SIZE 20
 
+#include "./Common_Send.h"
+
 void RecvCommand(int sock)
 {
 	// void * sock
@@ -16,29 +18,31 @@ void RecvCommand(int sock)
 	{
 		str_len=read(socket, Command, NAME_SIZE+BUF_SIZE-1);
 		if(str_len != -1){
-			printf("%s", Command)
+			printf("%s", Command);
 			// Camera가 받는 명령어를 추가해준다.
-			if (Command == "1"){
-				printf("Start");
+			if (*((int*)Command) == "1"){
+				fputs("Start \n", stderr);
+				Send(socket, 1, "", 0);
+				Send(socket, 3, "./dog.jpg", 0);
 			}
-			else if (Command == "2"){
-				printf("Stop");
+			else if (*((int*)Command) == "2"){
+				fputs("Stop \n", stderr);
 			}
-			else if (Command == "3"){
-				printf("Left");
+			else if (*((int*)Command) == "3"){
+				fputs("Left \n", stderr);
 			}
-			else if (Command == "4"){
-				printf("Right");
+			else if (*((int*)Command) == "4"){
+				fputs("Right \n", stderr);
 			}
-			else if (Command == "5"){
-				printf("Up");
+			else if (*((int*)Command) == "5"){
+				fputs("Up \n", stderr);
 			}
-			else if (Command == "6"){
-				printf("Down");
+			else if (*((int*)Command) == "6"){
+				fputs("Down \n", stderr);
 			}
 			// Thread를 빠져나오는 부분
 			else{
-				break;
+				fputs("???????? \n", stderr);;
 			}
 		}
 	}

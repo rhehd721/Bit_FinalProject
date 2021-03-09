@@ -13,7 +13,7 @@
 #include "/usr/include/mysql/mysql.h"
 // #include <mysql.h>
 #include "../DB/DB_Connect.h"
-#include "./Server_Recv_From_Camera.h"
+// #include "./Server_Recv_From_Camera.h"
 
 #define BUF_SIZE 100
 #define MAX_CLNT 2
@@ -38,7 +38,7 @@ pthread_mutex_t mutx;	// 쓰레드를 안정적으로 관리할 mutex
 
 // MYSQL *connection=NULL
 
-int Server_Open()
+int main()
 {
 	// server open에 이용될 변수들
 	int serv_sock, clnt_sock;
@@ -140,21 +140,24 @@ void send_ToClient(char * msg, int socket)   // 클라이언트에게 파일을 
 
 	// 파일을 받고 DB에 저장하고 Client에게 보내기
 	pthread_mutex_lock(&mutx);
-	if (msg == 1){	// 받은 파일이 Txt라면
+	if (msg == "1"){	// 받은 파일이 Txt라면
+		fputs("Json 파일을 받겠습니다. \n", stderr);
 		RcvFlie(socket, 1, char * FileName);	// /home/mango/Desktop/SaveJson
 		// Recv Txt
 		// Txt 읽기
 		// Txt 내용 DB 저장
 		// Txt Client 보내기
 	}
-	else if (msg == 2){	// 받은 파일이 Image라면
-		RcvFlie(socket, 0, char * FileName);	// /home/mango/Desktop/SaveImage
+	else if (msg == "2"){	// 받은 파일이 Image라면
+		fputs("Image 파일을 받겠습니다. \n", stderr);
+		// RcvFlie(socket, 0, char * FileName);	// /home/mango/Desktop/SaveImage
+		RcvFlie(socket, 0, "./dogRecv.jpg");	// /home/mango/Desktop/SaveImage
 		// Recv Image
 		// Image 경로 DB 저장
 		// Txt Client 보내기
 	}
 	else{	// 예외처리
-
+		fputs("에러가 발생했습니다. \n", stderr);
 	}
 	pthread_mutex_unlock(&mutx);
 }

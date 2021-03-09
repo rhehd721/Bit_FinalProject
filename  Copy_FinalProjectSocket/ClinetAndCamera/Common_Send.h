@@ -27,10 +27,10 @@ void Send(int server_socket, int Order, char * FileName, int check)
 	
 	if (Order == 1){
 		if(check == 0){	// image
-			sprintf(Command,"%s", "Image");
+			sprintf(Command,"%s", "2");
 		}
 		else{	// Txt
-			sprintf(Command,"%s", "Txt");
+			sprintf(Command,"%s", "1");
 		}
 		write(sock, Command, strlen(Command));
 	}
