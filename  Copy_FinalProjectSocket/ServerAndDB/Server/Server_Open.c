@@ -25,8 +25,8 @@ void send_ToCamera(char * msg, int len);
 void send_ToClient(char * msg, int socket);
 int RcvFlie(int socket, int Type, char * FileName);
 
-int * Client = 0;
-int * Camera = 0;
+int Client = 0;
+int Camera = 0;
 
 // 서버에 접속한 클라이언트와 라즈베리의 idx를 관리하는 변수
 int clnt_cnt=0;
@@ -75,8 +75,8 @@ int main()
 		pthread_mutex_lock(&mutx);
 
 		clnt_socks[clnt_cnt] = clnt_sock;
-		if (clnt_cnt == 0){Client = &clnt_sock;}
-		else{Camera = &clnt_sock;}
+		if (clnt_cnt == 0){Client = clnt_sock;}
+		else{Camera = clnt_sock;}
 		clnt_cnt++;
 
 		pthread_mutex_unlock(&mutx);
@@ -97,11 +97,11 @@ void * handle_clnt(void * arg)
 	int str_len=0, i;
 	char msg[BUF_SIZE];
 	
-	if (clnt_sock == *Client){	// 클라이언트 (즉, 받은거 카메라에게)
+	if (clnt_sock == Client){	// 클라이언트 (즉, 받은거 카메라에게)
 		while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
 		send_ToCamera(msg, str_len);
 	}
-	else if (clnt_sock == *Camera){	// 카메라 (즉, 받은거 클라이언트에게)
+	else if (clnt_sock == Camera){	// 카메라 (즉, 받은거 클라이언트에게)
 		while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
 		send_ToClient(msg, clnt_sock);
 	}
@@ -140,7 +140,7 @@ void send_ToClient(char * msg, int socket)   // 클라이언트에게 파일을 
 
 	// 파일을 받고 DB에 저장하고 Client에게 보내기
 	pthread_mutex_lock(&mutx);
-	if (msg == "1"){	// 받은 파일이 Txt라면
+	if (msg[0] == '1'){	// 받은 파일이 Txt라면
 		fputs("Json 파일을 받겠습니다. \n", stderr);
 		RcvFlie(socket, 1, char * FileName);	// /home/mango/Desktop/SaveJson
 		// Recv Txt
