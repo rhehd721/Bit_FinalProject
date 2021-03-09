@@ -141,14 +141,14 @@ void send_ToClient(char * msg, int socket)   // 클라이언트에게 파일을 
 	// 파일을 받고 DB에 저장하고 Client에게 보내기
 	pthread_mutex_lock(&mutx);
 	if (msg == 1){	// 받은 파일이 Txt라면
-		RcvFlie(socket, 1, char * FileName);
+		RcvFlie(socket, 1, char * FileName);	// /home/mango/Desktop/SaveJson
 		// Recv Txt
 		// Txt 읽기
 		// Txt 내용 DB 저장
 		// Txt Client 보내기
 	}
 	else if (msg == 2){	// 받은 파일이 Image라면
-		RcvFlie(socket, 0, char * FileName);
+		RcvFlie(socket, 0, char * FileName);	// /home/mango/Desktop/SaveImage
 		// Recv Image
 		// Image 경로 DB 저장
 		// Txt Client 보내기

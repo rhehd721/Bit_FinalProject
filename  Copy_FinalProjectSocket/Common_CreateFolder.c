@@ -6,8 +6,8 @@
 
 int main()
 {
-	char SaveTxtPath[] = { "/usr/Desktop/SaveJson" };
-	char SaveImagePath[] = { "/usr/Desktop/SaveImage" };
+	char SaveTxtPath[] = { "/home/mango/Desktop/SaveJson" };
+	char SaveImagePath[] = { "/home/mango/Desktop/SaveImage" };
 	
 	int TxtResult = mkdir( SaveTxtPath );
 	int ImageResult = mkdir( SaveImagePath );
