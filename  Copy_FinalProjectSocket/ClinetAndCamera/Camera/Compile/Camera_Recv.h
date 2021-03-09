@@ -23,7 +23,9 @@ void RecvCommand(int sock)
 			if (*((int*)Command) == "1"){
 				fputs("Start \n", stderr);
 				Send(socket, 1, "", 0);
+				fputs("Send1 \n", stderr);
 				Send(socket, 3, "./dog.jpg", 0);
+				fputs("Send end \n", stderr);
 			}
 			else if (*((int*)Command) == "2"){
 				fputs("Stop \n", stderr);

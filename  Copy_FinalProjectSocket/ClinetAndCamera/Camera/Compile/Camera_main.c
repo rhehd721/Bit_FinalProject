@@ -7,6 +7,10 @@
 #include <pthread.h>
 #include <time.h>
 
+#include <fcntl.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+
 #include "./Camera_OpenSocket.h"
 #include "./Camera_Recv.h"
 #include "./Camera_CloseSocket.h"
