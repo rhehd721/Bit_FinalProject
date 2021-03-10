@@ -1,10 +1,8 @@
 ## file_client.py
+# -*- coding: utf-8 -*- 
 
 import socket
 import argparse
-
-host = "127.0.0.1"
-port = "8080"
 
 def run(host, port, fileName):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
