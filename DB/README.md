@@ -353,6 +353,32 @@ mysql_config --cflags
 gcc -o sqlprogtam sqlprogram.c -lmysqlclient
 ```
 
+## Sql_data to csv_file
+```sql
+SELECT * FROM column_name
+INTO OUTFILE '/tmp/orders.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+```
+
+### Access denied 처리
+ERROR 1045 (28000): Access denied for user
+```sql
+ GRANT FILE ON *.* TO 'kccfres'@'localhost';
+```
+
+### secure-file-priv 처리
+ERROR 1290 (HY000)
+```sql
+SHOW VARIABLES LIKE "secure_file_priv";
+```
+INTO OUTFILE '/tmp/orders.csv' →  INTO OUTFILE '/var/lib/mysql-files/test.csv' 
+
+### /var/lib/mysql-files permission denied
+1. $ sudo i
+2. cd /var/lib/mysql-files
+
 ### ERROR 1366
 한글 사용시 발생하는 에러
 
