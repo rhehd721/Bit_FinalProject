@@ -1,6 +1,1 @@
-{
-    "Item_Name" : "Item1",
-    "Amount" : "3",
-    "time" : "2020:01:01",
-    "Item_place" : "3-3"
-  }
+{"Item_Name": "hello", "Amount": "3", "ImagePath": "./sds", "Item_place": "3-3", "time": "now"}

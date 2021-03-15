@@ -8,7 +8,32 @@
 
 int main(){
     char ** list = R();
-    printf("%s", *(list + 3));
+
+    char * Item_Name;
+    char * Amount;
+    char * ImagePath;
+    char * Item_place;
+    char * time;
+
+
+
+    // printf("%s \n", *(list));
+    printf("살려주세요 \n");
+    // sprintf(Item_Name, "%s", *(list + 0));
+    // sprintf(Amount, "%s", *(list + 1));
+    // sprintf(ImagePath, "%s", *(list + 2));
+    // sprintf(Item_place, "%s", *(list + 3));
+    // sprintf(time, "%s", *(list + 4));
+
+    // printf("%s, %s, %s, %s, %s",Item_Name, Amount, ImagePath, Item_place, time );
+    
+    // printf("%s \n", *(*list + 1 ));
+    // printf("%s \n", *(list + 1));
+    // printf("%s \n", *(list + 3));
+    // printf("%s \n", *(list + 3));
+    // printf("%s \n", *(list + i));
+    
+    
     // free....
 }
 
