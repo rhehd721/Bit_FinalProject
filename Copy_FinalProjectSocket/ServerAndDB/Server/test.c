@@ -9,15 +9,13 @@
 int main(){
     char ** list = R();
 
-    char * Item_Name;
-    char * Amount;
-    char * ImagePath;
-    char * Item_place;
-    char * time;
+    // char * Item_Name;
+    // char * Amount;
+    // char * ImagePath;
+    // char * Item_place;
+    // char * time;
 
-
-
-    // printf("%s \n", *(list));
+    // printf("%s \n", *list);
     printf("살려주세요 \n");
     // sprintf(Item_Name, "%s", *(list + 0));
     // sprintf(Amount, "%s", *(list + 1));
@@ -27,9 +25,15 @@ int main(){
 
     // printf("%s, %s, %s, %s, %s",Item_Name, Amount, ImagePath, Item_place, time );
     
-    // printf("%s \n", *(*list + 1 ));
-    // printf("%s \n", *(list + 1));
-    // printf("%s \n", *(list + 3));
+    printf("%s \n", (*list + 0));
+    printf("%s \n", (*(list + 1)));
+    printf("%s \n", (*(list + 2)));
+    // printf("%s \n", (*(list+1) ));
+    // printf("%s \n", (*(list) ));
+    // printf("%s \n", (*(list+ sizeof(**list)) ));
+        // printf("%s \n", (*(list+ (sizeof(**list)) )));
+
+    // printf("%s \n", (list));
     // printf("%s \n", *(list + 3));
     // printf("%s \n", *(list + i));
     

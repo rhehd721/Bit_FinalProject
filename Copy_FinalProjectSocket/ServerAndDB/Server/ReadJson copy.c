@@ -1,8 +1,8 @@
-// #define _CRT_SECURE_NO_WARNINGS    // fopen 보안 경고로 인한 컴파일 에러 방지
-// #include <stdio.h>     // 파일 처리 함수가 선언된 헤더 파일
-// #include <stdlib.h>    // malloc, free 함수가 선언된 헤더 파일
-// #include <stdbool.h>   // bool, true, false가 정의된 헤더 파일
-// #include <string.h>    // strchr, memset, memcpy 함수가 선언된 헤더 파일
+#define _CRT_SECURE_NO_WARNINGS    // fopen 보안 경고로 인한 컴파일 에러 방지
+#include <stdio.h>     // 파일 처리 함수가 선언된 헤더 파일
+#include <stdlib.h>    // malloc, free 함수가 선언된 헤더 파일
+#include <stdbool.h>   // bool, true, false가 정의된 헤더 파일
+#include <string.h>    // strchr, memset, memcpy 함수가 선언된 헤더 파일
 
 // 토큰 종류 열거형
 typedef enum _TOKEN_TYPE {
@@ -120,7 +120,7 @@ void freeJSON(JSON *json)    // JSON 해제 함수
     }
 }
 
-char ** R()
+int main()
 {
     int size;    // 문서 크기
 
@@ -136,13 +136,6 @@ char ** R()
     parseJSON(doc, size, &json);    // JSON 문서 파싱
 
     int idx = 0;
-
-    // for (int i = 1; i <= 9; i+=2){
-    //     char* token = (char*)malloc(sizeof(json.tokens[i].string) + 1);
-    //     sprintf(token, "%s", json.tokens[i].string);
-    //     printf("%s \n ", token);
-    //     JasonList[idx++] = token;
-    // }
 
     for (int i = 1; i <= 9; i+=2){
         char* token = (char*)malloc(sizeof(json.tokens[i].string) + 1);
@@ -161,5 +154,6 @@ char ** R()
 
     free(doc);    // 문서 동적 메모리 해제
 
-    return JasonList;
+    // return JasonList;
+    return 0;
 }
