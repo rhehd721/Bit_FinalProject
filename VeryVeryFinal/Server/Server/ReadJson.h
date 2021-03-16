@@ -1,9 +1,3 @@
-// #define _CRT_SECURE_NO_WARNINGS    // fopen 보안 경고로 인한 컴파일 에러 방지
-// #include <stdio.h>     // 파일 처리 함수가 선언된 헤더 파일
-// #include <stdlib.h>    // malloc, free 함수가 선언된 헤더 파일
-// #include <stdbool.h>   // bool, true, false가 정의된 헤더 파일
-// #include <string.h>    // strchr, memset, memcpy 함수가 선언된 헤더 파일
-
 // 토큰 종류 열거형
 typedef enum _TOKEN_TYPE {
     TOKEN_STRING,    // 문자열 토큰
@@ -120,14 +114,14 @@ void freeJSON(JSON *json)    // JSON 해제 함수
     }
 }
 
-char ** R()
+int ReadJson(char * FileName)
 {
     int size;    // 문서 크기
 
-    char * JasonList[5];
+    char * JasonList[3];
     
     // 파일에서 JSON 문서를 읽음, 문서 크기를 구함
-    char *doc = readFile("hello.json", &size);
+    char *doc = readFile(FileName, &size);
     if (doc == NULL)
         return -1;
 
@@ -137,29 +131,15 @@ char ** R()
 
     int idx = 0;
 
-    // for (int i = 1; i <= 9; i+=2){
-    //     char* token = (char*)malloc(sizeof(json.tokens[i].string) + 1);
-    //     sprintf(token, "%s", json.tokens[i].string);
-    //     printf("%s \n ", token);
-    //     JasonList[idx++] = token;
-    // }
-
-    for (int i = 1; i <= 9; i+=2){
+    for (int i = 1; i <= 5; i+=2){
         char* token = (char*)malloc(sizeof(json.tokens[i].string) + 1);
-        for (int j = 0; json.tokens[i].string[j] != '\0'; j++){
-            token[j] = json.tokens[i].string[j];
-        }
-        // sprintf(token, "%s", json.tokens[i].string);
+        sprintf(token, "%s", json.tokens[i].string);
         JasonList[idx++] = token;
-    }
-    
-    for (int i = 0; i < 5; i++){
-        printf("%s \n",JasonList[i] );
     }
 
     freeJSON(&json);    // json 안에 할당된 동적 메모리 해제
 
     free(doc);    // 문서 동적 메모리 해제
 
-    return JasonList;
+    return 0;
 }

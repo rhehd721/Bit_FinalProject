@@ -1,8 +1,12 @@
+# include "./ReadJson.h"
+
+#define _CRT_SECURE_NO_WARNINGS
+
 // Server
 void * handle_clnt(void * arg);
 void CommandSend_To_Raspberry(char * msg, int len);
 void FileSend_To_Client(char * msg, int socket);
-int RcvFlie(int socket, int Type, char * FileName);
+int RcvFlie(int socket, char * FileName);
 
 int Client = 0;	// 0
 int Raspberry_pi = 0;	// 1
@@ -18,7 +22,7 @@ pthread_mutex_t mutx;	// 쓰레드를 안정적으로 관리할 mutex
 
 // MYSQL *connection=NULL
 
-int ServerOpen()
+int ServerOpen(MYSQL * connection)
 {
 	// server open에 이용될 변수들
 	int serv_sock, clnt_sock;
@@ -65,6 +69,7 @@ int ServerOpen()
 		pthread_detach(t_id);
 		printf("Connected client IP: %s \n", inet_ntoa(clnt_adr.sin_addr));
 	}
+
 	close(serv_sock);
 	return 0;
 }
@@ -75,7 +80,7 @@ void * handle_clnt(void * arg)
 	int str_len=0, i;
 	char msg[BUF_SIZE];
 	
-	if (clnt_sock == Client){	// Client (즉, 받은거 카메라에게)
+	if (clnt_sock == Client){	// Client (즉, GUI에서 받은거 Raspvberry에게)
 		while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
 		CommandSend_To_Raspberry(msg, str_len);
 	}
@@ -88,7 +93,7 @@ void * handle_clnt(void * arg)
 	return NULL;
 }
 
-void CommandSend_To_Raspberry(char * msg, int len)	// 카메라에게 메세지 전달
+void CommandSend_To_Raspberry(char * msg, int len)	// Raspberry에게 메세지 전달
 {
 	pthread_mutex_lock(&mutx);
 	write(clnt_socks[1], msg, len);
@@ -97,14 +102,13 @@ void CommandSend_To_Raspberry(char * msg, int len)	// 카메라에게 메세지 
 
 void FileSend_To_Client(char * msg, int socket)   // 클라이언트에게 파일을 전송
 {
-	int str_len = 0;
-
 	// 파일을 받고 DB에 저장하고 Client에게 보내기
 	pthread_mutex_lock(&mutx);
 	if (msg[0] == '1'){	// 받은 파일이 Txt라면
-		fputs("Json 파일을 받겠습니다. \n", stderr);
 		// RcvFlie(socket, 1, char * FileName);	// /home/mango/Desktop/SaveJson
-		RcvFlie(socket, 1, "./Recv.json");	// /home/mango/Desktop/SaveJson
+		RcvFlie(socket, 1, "./SaveFile/Json/Recv.json");
+
+		ReadJson()
 
 		// Recv Txt
 		// Txt 읽기
@@ -112,9 +116,8 @@ void FileSend_To_Client(char * msg, int socket)   // 클라이언트에게 파�
 		// Txt Client 보내기
 	}
 	else if (msg[0] == '2'){	// 받은 파일이 Image라면
-		fputs("Image 파일을 받겠습니다. \n", stderr);
 		// RcvFlie(socket, 0, char * FileName);	// /home/mango/Desktop/SaveImage
-		RcvFlie(socket, 0, "./dogRecv.jpg");	// /home/mango/Desktop/SaveImage
+		RcvFlie(socket, 0, "././SaveFile/Image/Recv.jpg");
 
 		// Recv Image
 		// Image 경로 DB 저장
@@ -123,17 +126,11 @@ void FileSend_To_Client(char * msg, int socket)   // 클라이언트에게 파�
 	else{	// 예외처리
 		fputs("에러가 발생했습니다. \n", stderr);
 	}
+	MakeCsv();
 	pthread_mutex_unlock(&mutx);
 }
 
-void error_handling(char * msg)
-{
-	fputs(msg, stderr);
-	fputc('\n', stderr);
-	exit(1);
-}
-
-int RcvFlie(int socket, int Type, char * FileName)
+int RcvFlie(int socket, char * FileName)
 {
 	int clnt_sock = socket;	// 클라이언트 소셋
 	char buf[256];	// 받을 메세지
@@ -142,33 +139,23 @@ int RcvFlie(int socket, int Type, char * FileName)
     size_t filesize = 0, bufsize = 0;
     FILE *file = NULL;
 
-	if (Type == 0){
-    	file = fopen(FileName, "wb");
-	}
-	else if (Type == 1){
-		file = fopen(FileName, "wt");
-	}
-	else{
-		return -1;
-	}
+    file = fopen(FileName, "wb");
 
     bufsize = 256;
 
-    while(/*filesize != 0*/nbyte!=0) {
- 		//if(filesize < 256) bufsize = filesize;
+    while(nbyte!=0) {
         nbyte = recv(clnt_sock, buf, bufsize, 0);
-		// int recv(int s, void *buf, size_t len, int flags);
-		// int s	: 소켓 디스크립터
-		// void *buf	: 수신할 버퍼 포인터 데이터
-		// size_t len	: 버퍼의 바이트 단위 크기
-		// int flags	: 아래와 같은 옵션을 사용할 수 있습니다.
-
         fwrite(buf, sizeof(char), nbyte, file);		
-        //nbyte = 0;
     }
- 
 
 	// 파일과 소켓을 닫아준다
 	fclose(file);
 	return 0;
+}
+
+void error_handling(char * msg)
+{
+	fputs(msg, stderr);
+	fputc('\n', stderr);
+	exit(1);
 }

@@ -6,10 +6,10 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <pthread.h>
+#include <stdbool.h>
 #include "/usr/include/mysql/mysql.h"
 
 #include "./Server/Server_Open.h"
-#include "./Server/Server_Close.h"
 
 #include "./DB/DB_Connect.h"
 #include "./DB/DB_Close.h"
@@ -29,11 +29,7 @@ int main(){
 
     ServerOpen();   // Server 연결 및 관리
 
-
-
-
-
-
     DB_Close(connection);
-    Server_Close(); // 종료
+
+    return 0;
 }
