@@ -13,6 +13,6 @@
 // 소켓을 받아와서 종료
 int EndSocket(int socket)
 {
-	close(socket);  
+	close(socket);
 	return 0;
 }

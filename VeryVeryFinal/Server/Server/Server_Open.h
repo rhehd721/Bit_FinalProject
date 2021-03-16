@@ -1,4 +1,5 @@
-# include "./ReadJsonAndInsertData.h"
+#include "./ReadJsonAndInsertData.h"
+#include "../DB/DB_MakeCsv.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -108,22 +109,24 @@ void FileSend_To_Client(char * msg, int socket)   // 클라이언트에게 파�
 	pthread_mutex_lock(&mutx);
 	if (msg[0] == '1'){	// 받은 파일이 Txt라면
 		// RcvFlie(socket, 1, char * FileName);	// /home/mango/Desktop/SaveJson
-		RcvFlie(socket, 1, "./SaveFile/Json/Recv.json");
+		RcvFlie(socket, "./SaveFile/Json/Recv.json");
 	}
 	else if (msg[0] == '2'){	// 받은 파일이 Image라면
 		// RcvFlie(socket, 0, char * FileName);	// /home/mango/Desktop/SaveImage
-		    time_t t = time(NULL);
-			struct tm tm = *localtime(&t);
+		time_t t = time(NULL);
+		struct tm tm = *localtime(&t);
 
-			char * time = printf("%d.%d.%d.%d.%d.%d\n",
+		char name[100] = 0;
+		sprintf(name, "%d.%d.%d.%d.%d.%d_Recv.jpg",
 			tm.tm_year - 100, tm.tm_mon+1, tm.tm_mday,
 			tm.tm_hour, tm.tm_min, tm.tm_sec);
-		RcvFlie(socket, 0, "././SaveFile/Image/Recv.jpg");
+
+		RcvFlie(socket, name);
 	}
-	else{	// 예외처리
-		fputs("에러가 발생했습니다. \n", stderr);
+	else{	// 파일을 모두 받았다
+		MakeCsv(connection);
 	}
-	MakeCsv();
+	
 	pthread_mutex_unlock(&mutx);
 }
 
