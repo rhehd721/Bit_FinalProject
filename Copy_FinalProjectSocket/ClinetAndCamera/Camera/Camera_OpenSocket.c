@@ -11,7 +11,7 @@
 #include <pthread.h>
 #include <time.h>
 
-#define IP_Num "127.0.0.1"
+#define IP_Num "192.168.1.133"
 #define PORT_Num "8080"
 
 // Server의 IP와 PORT 받아와서 소켓 열기
