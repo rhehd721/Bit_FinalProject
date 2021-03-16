@@ -114,7 +114,7 @@ void freeJSON(JSON *json)    // JSON 해제 함수
     }
 }
 
-int ReadJson(char * FileName)
+int ReadJson(char * FileName, MYSQL * connection)
 {
     int size;    // 문서 크기
 
@@ -140,6 +140,15 @@ int ReadJson(char * FileName)
     freeJSON(&json);    // json 안에 할당된 동적 메모리 해제
 
     free(doc);    // 문서 동적 메모리 해제
+
+    char query[255];
+
+    // 받아온 데이터를 DB에 넣어준다.
+    sprintf(query, "insert into Inventory_Table values "
+                   "('%s', '%d', now(), '%s', '%s')",
+                   JasonList[0], JasonList[1], ImagePath, JasonList[2]);
+
+    mysql_query(connection, query);
 
     return 0;
 }

@@ -27,7 +27,7 @@ int main(){
     MYSQL * connection=NULL;
 	connection = DB_Connect();  // DB 연결
 
-    ServerOpen();   // Server 연결 및 관리
+    ServerOpen(connection);   // Server 연결 및 관리
 
     DB_Close(connection);
 

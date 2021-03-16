@@ -1,4 +1,4 @@
-# include "./ReadJson.h"
+# include "./ReadJsonAndInsertData.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -20,10 +20,12 @@ int clnt_socks[MAX_CLNT];
 
 pthread_mutex_t mutx;	// 쓰레드를 안정적으로 관리할 mutex
 
-// MYSQL *connection=NULL
+MYSQL * connection = NULL;
 
-int ServerOpen(MYSQL * connection)
+
+int ServerOpen(MYSQL * connec)
 {
+	connection = connec;
 	// server open에 이용될 변수들
 	int serv_sock, clnt_sock;
 	struct sockaddr_in serv_adr, clnt_adr;
@@ -107,21 +109,16 @@ void FileSend_To_Client(char * msg, int socket)   // 클라이언트에게 파�
 	if (msg[0] == '1'){	// 받은 파일이 Txt라면
 		// RcvFlie(socket, 1, char * FileName);	// /home/mango/Desktop/SaveJson
 		RcvFlie(socket, 1, "./SaveFile/Json/Recv.json");
-
-		ReadJson()
-
-		// Recv Txt
-		// Txt 읽기
-		// Txt 내용 DB 저장
-		// Txt Client 보내기
 	}
 	else if (msg[0] == '2'){	// 받은 파일이 Image라면
 		// RcvFlie(socket, 0, char * FileName);	// /home/mango/Desktop/SaveImage
-		RcvFlie(socket, 0, "././SaveFile/Image/Recv.jpg");
+		    time_t t = time(NULL);
+			struct tm tm = *localtime(&t);
 
-		// Recv Image
-		// Image 경로 DB 저장
-		// Txt Client 보내기
+			char * time = printf("%d.%d.%d.%d.%d.%d\n",
+			tm.tm_year - 100, tm.tm_mon+1, tm.tm_mday,
+			tm.tm_hour, tm.tm_min, tm.tm_sec);
+		RcvFlie(socket, 0, "././SaveFile/Image/Recv.jpg");
 	}
 	else{	// 예외처리
 		fputs("에러가 발생했습니다. \n", stderr);
