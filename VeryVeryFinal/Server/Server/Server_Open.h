@@ -127,7 +127,7 @@ void FileSend_To_Client(char * msg, int socket)   // 클라이언트에게 파�
 		struct tm tm = *localtime(&t);
 
 		char name[100] = 0;
-		sprintf(name, "./SaveFile/Image/%d.%d.%d.%d.%d.%d_Recv.jpg",
+		sprintf(name, "./SaveFile/Image/%d.%d.%d.%d.%d.%d_Recv.png",
 			tm.tm_year - 100, tm.tm_mon+1, tm.tm_mday,
 			tm.tm_hour, tm.tm_min, tm.tm_sec);
 
