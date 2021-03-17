@@ -3,15 +3,27 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
+#define BUF_SIZE 100
+#define MAX_CLNT 3
+#define PORT "8080"
+
+#define DB_HOST "127.0.0.1"
+#define DB_USER "bit"
+#define DB_PASS "1234"
+#define DB_NAME "Bit"
+
 // Server
 void * handle_clnt(void * arg);
 void CommandSend_To_Raspberry(char * msg, int len);
 void FileSend_To_Client(char * msg, int socket);
 int RcvFlie(int socket, char * FileName);
+int SendFile(int socket, char *FileName);
 
 int Client = 0;	// 0
 int Raspberry_pi = 0;	// 1
 int Jetson = 0;	// 2
+
+char * ImagePath;
 
 // 서버에 접속한 클라이언트와 라즈베리의 idx를 관리하는 변수
 int clnt_cnt = 0;
@@ -107,24 +119,28 @@ void FileSend_To_Client(char * msg, int socket)   // 클라이언트에게 파�
 {
 	// 파일을 받고 DB에 저장하고 Client에게 보내기
 	pthread_mutex_lock(&mutx);
-	if (msg[0] == '1'){	// 받은 파일이 Txt라면
-		// RcvFlie(socket, 1, char * FileName);	// /home/mango/Desktop/SaveJson
+	if (msg[0] == '1'){
 		RcvFlie(socket, "./SaveFile/Json/Recv.json");
 	}
-	else if (msg[0] == '2'){	// 받은 파일이 Image라면
-		// RcvFlie(socket, 0, char * FileName);	// /home/mango/Desktop/SaveImage
+	else if (msg[0] == '2'){
 		time_t t = time(NULL);
 		struct tm tm = *localtime(&t);
 
 		char name[100] = 0;
-		sprintf(name, "%d.%d.%d.%d.%d.%d_Recv.jpg",
+		sprintf(name, "./SaveFile/Image/%d.%d.%d.%d.%d.%d_Recv.jpg",
 			tm.tm_year - 100, tm.tm_mon+1, tm.tm_mday,
 			tm.tm_hour, tm.tm_min, tm.tm_sec);
 
 		RcvFlie(socket, name);
+		ImagePath = name;
 	}
 	else{	// 파일을 모두 받았다
+		ReadJson(connection, ImagePath);
 		MakeCsv(connection);
+		SendFile(clnt_socks[0], "/var/lib/mysql-files/orders.csv");
+
+		remove("./SaveFile/Json/Recv.json");
+		remove("/var/lib/mysql-files/orders.csv");
 	}
 	
 	pthread_mutex_unlock(&mutx);
@@ -158,4 +174,38 @@ void error_handling(char * msg)
 	fputs(msg, stderr);
 	fputc('\n', stderr);
 	exit(1);
+}
+
+int SendFile(int socket, char *FileName){
+    // 소켓의 정보를 받아온다.
+    int sock= socket;
+
+    FILE* file = NULL;
+    char buf[BUFSIZ];
+
+    size_t fsize, nsize = 0;
+    
+	file = fopen(FileName, "rb");
+	
+    /* 파일 크기 계산 */
+    // move file pointer to end
+	fseek(file, 0, SEEK_END);
+	// calculate file size
+	fsize=ftell(file);
+	// move file pointer to first
+	fseek(file, 0, SEEK_SET);
+
+
+	// send file contents
+	while (nsize!=fsize) {
+		int fpsize = fread(buf, 1, 256, file);
+
+		nsize += fpsize;
+		send(sock, buf, fpsize, 0);
+	}	
+
+	// 파일 닫아주기
+	fclose(file);
+    
+	return 0;
 }

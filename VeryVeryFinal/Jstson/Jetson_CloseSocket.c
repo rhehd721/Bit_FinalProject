@@ -15,4 +15,4 @@ int EndSocket(int socket)
 {
 	close(socket);
 	return 0;
-}
+}  
