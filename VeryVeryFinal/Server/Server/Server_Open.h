@@ -44,10 +44,16 @@ int ServerOpen(MYSQL * connec)
 	struct sockaddr_in serv_adr, clnt_adr;
 	int clnt_adr_sz;
 	pthread_t t_id;
+	soclen_t optlen;
+	int option;
   
 	pthread_mutex_init(&mutx, NULL);	// mutex 초기화
 	
 	serv_sock=socket(PF_INET, SOCK_STREAM, 0);	// 서버는 IPv4(PF_INET) 프로토콜을 사용할거고 연결지향형(SOCK_STREAM) 소켓을 사용할거야
+
+	optlen = sizeof(option);
+	option = 1;
+	setsockopt(serv_sock, SOL_SOCKET, SO_REUSEADDR, (void*)&option, optlen);
 
 	// 넘겨받은 PORT번호로 서버 OPEN
 	memset(&serv_adr, 0, sizeof(serv_adr));
