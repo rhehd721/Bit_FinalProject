@@ -195,7 +195,6 @@ int SendFile(int socket, char *FileName){
 	// move file pointer to first
 	fseek(file, 0, SEEK_SET);
 
-
 	// send file contents
 	while (nsize!=fsize) {
 		int fpsize = fread(buf, 1, 256, file);
