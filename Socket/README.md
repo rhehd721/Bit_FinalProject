@@ -293,3 +293,22 @@ int pthread_create (pthread_t *restrict thread, const pthread_attr_t *restrict a
 뮤텍스는 화장실이 하나 뿐이 없는 식당과 비슷하다. 화장실을 가기 위해서는 카운터에서 열쇠를 받아 가야 한다.
 
 화장실을 가려고 하는데 카운터에 키가 있으면 화장실에 사람이 없다는 뜻이고 그 열쇠를 이용해 화장실에 들어갈 수 있다.
+
+## Port Kill
+```cmd
+fuser -k 20001/tcp
+```
+
+## Time wait 방지
+```c
+pthread_t t_id;
+soclen_t optlen;
+int option;
+
+serv_sock=socket(PF_INET, SOCK_STREAM, 0);	
+
+// time wait
+optlen = sizeof(option);
+option = 1;
+setsockopt(serv_sock, SOL_SOCKET, SO_REUSEADDR, (void*)&option, optlen);
+```
