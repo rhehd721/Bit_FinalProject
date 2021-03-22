@@ -295,6 +295,11 @@ int pthread_create (pthread_t *restrict thread, const pthread_attr_t *restrict a
 화장실을 가려고 하는데 카운터에 키가 있으면 화장실에 사람이 없다는 뜻이고 그 열쇠를 이용해 화장실에 들어갈 수 있다.
 
 ## Port Kill
+port 확인 명령어
+```cmd
+netstat -ntlp | grep : 포트번호
+```
+port kill
 ```cmd
 fuser -k 20001/tcp
 ```
